@@ -8,6 +8,8 @@
         "base"
     ],
     "data": [
-
+        "security/ir.model.access.csv",
+        "views/patient_dashboard_views.xml",
+        "views/clinic_menus.xml"
     ],
 }

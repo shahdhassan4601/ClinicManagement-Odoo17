@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <menuitem 
+        id="clinic_root_menu"
+        name="Clinic"
+        />
+
+        <menuitem 
+        id="clinic_patient_menu"
+        name="Patient Dashboard"
+        parent="clinic_root_menu"
+        action="patient_views_action"
+        />
+    </data>
+</odoo>
