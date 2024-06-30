@@ -6,7 +6,9 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="contact_address"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                    <field name="address"/>
                     <field name="phone"/>
                 </tree>
             </field>
@@ -27,15 +29,34 @@
                         <notebook>
                             <page string="Patient Details">
                                 <group>
-                                    <field name="date_of_birth"/>
-                                    <field name="phone"/>
-                                    <field name="is_insurance"/>
-                                    <field name="insurance_company"/>
-                                    <field name="policy_number"/>
-                                    <field name="expiry_date"/>
-                                    <field name="coverage_details"/>
-                                    <field name="emergency_contact_name"/>
-                                    <field name="emergency_contact_number"/>
+                                    <group>
+                                        <group string="Basic Info">
+                                            <field name="date_of_birth"/>
+                                            <field name="age"/>
+                                            <field name="gender"/>
+                                            <field name="phone"/>
+                                        </group>
+                                        <group string="address info">
+                                            <field name="street"/>
+                                            <field name="street2"/>
+                                            <field name="city"/>
+                                            <field name="zip"/>
+                                            <field name="country_id"/>
+                                        </group>
+
+                                        <group string="Emergency Contact">
+                                            <field name="emergency_contact_name"/>
+                                            <field name="emergency_contact_number"/>
+                                        </group>
+
+                                        <group string="Insurance Info">
+                                            <field name="is_insurance"/>
+                                            <field name="insurance_company" invisible="not is_insurance"/>
+                                            <field name="policy_number" invisible="not is_insurance"/>
+                                            <field name="expiry_date" invisible="not is_insurance"/>
+                                            <field name="coverage_details" invisible="not is_insurance"/>
+                                        </group>
+                                    </group>
                                 </group>
                             </page>
                             <page string="Medical History">
