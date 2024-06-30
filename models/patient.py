@@ -24,6 +24,13 @@ class Patient(models.Model):
     emergency_contact_name = fields.Char('Emergency Contact Name')
     emergency_contact_number = fields.Char('Emergency Contact Number')
     
+    # overridden method create to add sequence
+    @api.model
+    def create(self, vals):
+        res = super(Patient, self).create(vals)
+        if res.patient_id == 'New':
+            res.patient_id = self.env['ir.sequence'].next_by_code('patient.sequence')
+        return res
     
     
     

@@ -19,8 +19,11 @@
                 <form>
                     <sheet>
                         <h1>
-                            <field name="name"/>
+                            <field name="patient_id"/>
                         </h1>
+                        <h3>
+                            <field name="name"/>
+                        </h3>
                         <notebook>
                             <page string="Patient Details">
                                 <group>
