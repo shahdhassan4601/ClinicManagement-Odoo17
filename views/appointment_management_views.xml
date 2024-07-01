@@ -1,5 +1,21 @@
 <odoo>
     <data>
+
+        <!-- calendar view -->
+        <record id="appointment_calendar_view" model="ir.ui.view">
+            <field name="name">clinic.appointment.calendar</field>
+            <field name="model">clinic.appointment</field>
+            <field name="arch" type="xml">
+                <calendar string="Appointments" date_start="datetime" color="doctor_id">
+                    <field name="patient_id"/>
+                    <field name="doctor_id"/>
+                    <field name="appointment_type"/>
+                    <field name="status"/>
+                </calendar>
+            </field>
+        </record>
+
+        
         <!-- kanban view -->
         <record id="appointment_kanban_view" model="ir.ui.view">
             <field name="name">clinic.appointment.kanban</field>

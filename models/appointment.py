@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ClinicAppointment(models.Model):
@@ -23,4 +24,16 @@ class ClinicAppointment(models.Model):
     ], default='pending', required=True)
     
     notes = fields.Text('Notes')
+    
+    # constraints
+    @api.constrains('datetime', 'doctor_id')
+    def _check_conflict(self):
+        for record in self:
+            conflicting_appointments = self.search([
+                ('doctor_id', '=', record.doctor_id.id),
+                ('datetime', '=', record.datetime),
+                ('id', '!=', record.id)
+            ])
+            if conflicting_appointments:
+                raise ValidationError('The doctor is already booked for this time slot. Please choose another time.')
     
