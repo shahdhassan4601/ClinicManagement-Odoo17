@@ -7,6 +7,7 @@ class ClinicAppointment(models.Model):
     _description = 'Appointment'
 
     # Base fields
+    appointments_id = fields.Char('Appointment', default='New', readonly=True)
     patient_id = fields.Many2one('res.partner', string='Patient', required=True)
     datetime = fields.Datetime('Date and Time', required=True)
     doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
@@ -26,6 +27,15 @@ class ClinicAppointment(models.Model):
     notes = fields.Text('Notes')
     
     treatment_id = fields.One2many('clinic.treatment','appointment_id', string='Treatment')
+    
+    
+    # overridden method create to add sequence
+    @api.model
+    def create(self, vals):
+        res = super(ClinicAppointment, self).create(vals)
+        if res.appointments_id == 'New':
+            res.appointments_id = self.env['ir.sequence'].next_by_code('appointment.sequence')
+        return res
     
     # constraints
     @api.constrains('datetime', 'doctor_id')

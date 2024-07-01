@@ -26,8 +26,12 @@
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
                                 <h2 style="margin: 0 0 20px 5px;">
-                                    <field name="patient_id"/>
+                                    <field name="appointments_id"/>
                                 </h2>
+                                <div style="margin: 0 0 10px 5px;">
+                                    <strong style="margin: 0 10px 0 0;">Patient:</strong>
+                                    <field name="patient_id"/>
+                                </div>
                                 <div style="margin: 0 0 10px 5px;">
                                     <strong style="margin: 0 10px 0 0;">Date and Time:</strong>
                                     <field name="datetime"/>
@@ -55,7 +59,7 @@
                 <form>
                     <sheet>
                         <h1 style="margin: 0 0 30px 0;">
-                            Appointment Details
+                            <field name="appointments_id"/>
                         </h1>
                         <group>
                             <field name="patient_id"/>

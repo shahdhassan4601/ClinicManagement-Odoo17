@@ -3,7 +3,7 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class Patient(models.Model):
+class ClinicPatient(models.Model):
     _inherit = 'res.partner'
     
     # Base fields
@@ -43,7 +43,7 @@ class Patient(models.Model):
     # overridden method create to add sequence
     @api.model
     def create(self, vals):
-        res = super(Patient, self).create(vals)
+        res = super(ClinicPatient, self).create(vals)
         if res.patient_id == 'New':
             res.patient_id = self.env['ir.sequence'].next_by_code('patient.sequence')
         return res
