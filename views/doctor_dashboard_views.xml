@@ -13,7 +13,24 @@
             </field>
         </record>
 
-
+        <record id="doctor_form_view" model="ir.ui.view">
+            <field name="name">clinic.doctor.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="specialty"/>
+                            <field name="availability"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
         <record id="doctor_action_view" model="ir.actions.act_window">
             <field name="name">Doctor Dashboard</field>
@@ -25,6 +42,12 @@
         <record id="patient_action_tree_view" model="ir.actions.act_window.view">
             <field name="view_mode">tree</field>
             <field name="view_id" ref="doctor_tree_view"/>
+            <field name="act_window_id" ref="doctor_action_view"/>
+        </record>
+
+        <record id="patient_action_form_view" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="doctor_form_view"/>
             <field name="act_window_id" ref="doctor_action_view"/>
         </record>
 

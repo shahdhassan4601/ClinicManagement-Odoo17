@@ -16,7 +16,7 @@ class ClinicDoctor(models.Model):
         ('psychiatry', 'Psychiatrist'),
         ('radiology', 'Radiologist'),
         ('surgery', 'Surgeon'),
-    ], string='Specialty', required=True)
+    ], string='Specialty')
     
     
     # Computed field
@@ -39,6 +39,5 @@ class ClinicDoctor(models.Model):
     def _compute_upcoming_appointments(self):
         for doctor in self:
             now = datetime.now()
-            doctor.upcoming_appointments = len(doctor.appointment_id.filtered(lambda appointment: appointment.datetime > now))
-            
+            doctor.upcoming_appointments = len(doctor.appointment_id.filtered(lambda appointment: appointment.datetime and appointment.datetime > now))
             
