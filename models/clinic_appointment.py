@@ -25,6 +25,8 @@ class ClinicAppointment(models.Model):
     
     notes = fields.Text('Notes')
     
+    treatment_id = fields.One2many('clinic.treatment','appointment_id', string='Treatment')
+    
     # constraints
     @api.constrains('datetime', 'doctor_id')
     def _check_conflict(self):

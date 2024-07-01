@@ -64,6 +64,11 @@
                             <field name="appointment_type"/>
                             <field name="status"/>
                             <field name="notes"/>
+                            <field name="treatment_id" readonly="1">
+                                <tree>
+                                    <field name="treatment_details"/>
+                                </tree>
+                            </field>
                         </group>
                     </sheet>
                 </form>
