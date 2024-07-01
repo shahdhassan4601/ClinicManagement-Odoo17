@@ -25,5 +25,12 @@
         parent="clinic_root_menu"
         action="doctor_action_view"
         />
+
+        <menuitem 
+        id="clinic_treatment_menu"
+        name="Treatment Management"
+        parent="clinic_root_menu"
+        action="treatment_action_view"
+        />
     </data>
 </odoo>

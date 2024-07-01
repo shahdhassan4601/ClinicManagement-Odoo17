@@ -6,6 +6,8 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
+                    <field name="specialty"/>
+                    <field name="availability"/>
                     <field name="upcoming_appointments"/>
                 </tree>
             </field>

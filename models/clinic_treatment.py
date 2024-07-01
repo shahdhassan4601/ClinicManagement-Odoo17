@@ -9,8 +9,24 @@ class ClinicTreatment(models.Model):
     doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
     appointment_id = fields.Many2one('clinic.appointment', string='Appointment', required=True)
     
+    # treatment fields
     treatment_diagnosis = fields.Text('Diagnosis')
     treatment_prescription = fields.Text('Prescription')
     treatment_procedure = fields.Text('Procedure')
     
+    treatment_details = fields.Text('Treatment Details', compute='_compute_treatment_details')
+    
+
     notes = fields.Text('Notes')
+    
+    @api.depends('treatment_diagnosis', 'treatment_prescription', 'treatment_procedure')
+    def _compute_treatment_details(self):
+        for record in self:
+            record.treatment_details = f"Diagnosis: {record.treatment_diagnosis}\nPrescription: {record.treatment_prescription}\nProcedure: {record.treatment_procedure}"
+                
+    
+    @api.onchange('appointment_id')
+    def _onchange_appointment_id(self):
+        if self.appointment_id:
+            self.patient_id = self.appointment_id.patient_id
+            self.doctor_id = self.appointment_id.doctor_id

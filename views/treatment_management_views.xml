@@ -1,0 +1,51 @@
+<odoo>
+        <!-- appointment action -->
+        <record id="treatment_action_view" model="ir.actions.act_window">
+            <field name="name">Treatment Managemnet</field>
+            <field name="res_model">clinic.treatment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="treatment_tree_view" model="ir.ui.view">
+            <field name="name">clinic.treatment.tree</field>
+            <field name="model">clinic.treatment</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="appointment_id"/>
+                    <field name="patient_id"/>
+                    <field name="doctor_id"/>
+                    <field name="treatment_details"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="treatment_form_view" model="ir.ui.view">
+            <field name="name">clinic.treatment.form</field>
+            <field name="model">clinic.treatment</field>
+            <field name="arch" type="xml">
+               <form string="treatment form">
+                    <sheet>
+                        <group>
+                            <field name="appointment_id"/>
+                        </group>
+                        <group>
+                            <field name="patient_id"/>
+                        </group>
+                        <group>
+                            <field name="doctor_id"/>
+                        </group>
+                        <group>
+                            <field name="treatment_diagnosis"/>
+                        </group>
+                        <group>
+                            <field name="treatment_prescription"/>
+                        </group>
+                        <group>
+                            <field name="treatment_procedure"/>
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+</odoo>

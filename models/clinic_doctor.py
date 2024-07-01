@@ -41,3 +41,4 @@ class ClinicDoctor(models.Model):
             now = datetime.now()
             doctor.upcoming_appointments = len(doctor.appointment_id.filtered(lambda appointment: appointment.datetime > now))
             
+            
