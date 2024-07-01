@@ -84,14 +84,12 @@
 
 
         <record id="patient_views_action_tree" model="ir.actions.act_window.view">
-            <field name="sequence" eval="1"/>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="patient_views_tree"/>
             <field name="act_window_id" ref="patient_views_action"/>
         </record>
 
         <record id="patient_views_action_form" model="ir.actions.act_window.view">
-            <field name="sequence" eval="1"/>
             <field name="view_mode">form</field>
             <field name="view_id" ref="patient_views_form"/>
             <field name="act_window_id" ref="patient_views_action"/>

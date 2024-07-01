@@ -11,6 +11,7 @@
         "security/ir.model.access.csv",
         "data/patient_sequence.xml",
         "views/patient_dashboard_views.xml",
+        "views/appointment_management_views.xml",
         "views/clinic_menus.xml"
     ],
 }

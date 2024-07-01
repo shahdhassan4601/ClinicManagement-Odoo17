@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <!-- kanban view -->
+        <record id="appointment_kanban_view" model="ir.ui.view">
+            <field name="name">clinic.appointment.kanban</field>
+            <field name="model">clinic.appointment</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="status">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <h2 style="margin: 0 0 20px 5px;">
+                                    <field name="patient_id"/>
+                                </h2>
+                                <div style="margin: 0 0 10px 5px;">
+                                    <strong style="margin: 0 10px 0 0;">Date and Time:</strong>
+                                    <field name="datetime"/>
+                                </div>
+                                <div style="margin: 0 0 10px 5px;">
+                                    <strong style="margin: 0 10px 0 0;">Doctor:</strong>
+                                    <field name="doctor_id"/>
+                                </div>
+                                <div style="margin: 0 0 10px 5px;">
+                                    <strong style="margin: 0 10px 0 0;">Type:</strong>
+                                    <field name="appointment_type"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- form view -->
+        <record id="appointment_form_view" model="ir.ui.view">
+            <field name="name">clinic.appointment.form</field>
+            <field name="model">clinic.appointment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1 style="margin: 0 0 30px 0;">
+                            Appointment Details
+                        </h1>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="datetime"/>
+                            <field name="doctor_id"/>
+                            <field name="appointment_type"/>
+                            <field name="status"/>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- appointment action -->
+        <record id="appointment_management_action" model="ir.actions.act_window">
+            <field name="name">Appointment Managemnet</field>
+            <field name="res_model">clinic.appointment</field>
+            <field name="view_mode">calendar,kanban,form</field>
+        </record>
+    </data>
+</odoo>

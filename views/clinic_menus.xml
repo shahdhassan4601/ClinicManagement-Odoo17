@@ -11,5 +11,12 @@
         parent="clinic_root_menu"
         action="patient_views_action"
         />
+
+        <menuitem 
+        id="clinic_appointment_menu"
+        name="Appointment Managemnet"
+        parent="clinic_root_menu"
+        action="appointment_management_action"
+        />
     </data>
 </odoo>
