@@ -19,6 +19,11 @@ class Patient(models.Model):
     # address computed field
     address = fields.Char('Address', compute='_compute_address')
     
+    # appointment fields
+    appointment_id = fields.One2many('clinic.appointment', 'patient_id', string='Appointments')
+    upcoming_appointments = fields.One2many('clinic.appointment', 'patient_id', string='Upcoming Appointments', 
+                                            compute='_compute_upcoming_appointments')
+        
     # emergency contact
     emergency_contact_name = fields.Char('Emergency Contact Name')
     emergency_contact_number = fields.Char('Emergency Contact Number')
@@ -68,6 +73,14 @@ class Patient(models.Model):
                 record.age = (date.today() - birth_date).days // 365
             else:
                 record.age = 0
+                
+
+    @api.depends('appointment_id')
+    def _compute_upcoming_appointments(self):
+        for record in self:
+            record.upcoming_appointments = record.appointment_id.filtered(
+                lambda a: a.status != 'canceled' and a.datetime and a.datetime > fields.Datetime.now()
+            )
     
 
     

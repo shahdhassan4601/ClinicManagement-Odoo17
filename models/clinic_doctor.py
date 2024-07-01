@@ -23,7 +23,7 @@ class ClinicDoctor(models.Model):
     availability = fields.Char(string='Availability', compute='_compute_availability')
 
     appointment_id = fields.One2many('clinic.appointment', 'doctor_id', string='Appointments')
-    upcoming_appointments = fields.Integer(string='Upcoming Appointments', compute='_compute_upcoming_appointments')
+    upcoming_appointments = fields.One2many('clinic.appointment', 'doctor_id',compute='_compute_upcoming_appointments')
         
     
     @api.depends('appointment_id')
@@ -35,9 +35,10 @@ class ClinicDoctor(models.Model):
             else:
                 doctor.availability = 'Available'
                 
-    @api.depends('appointment_id.datetime')
+    @api.depends('appointment_id')
     def _compute_upcoming_appointments(self):
-        for doctor in self:
-            now = datetime.now()
-            doctor.upcoming_appointments = len(doctor.appointment_id.filtered(lambda appointment: appointment.datetime and appointment.datetime > now))
+        for record in self:
+            record.upcoming_appointments = record.appointment_id.filtered(
+                lambda a: a.status != 'canceled' and a.datetime and a.datetime > fields.Datetime.now()
+            )
             

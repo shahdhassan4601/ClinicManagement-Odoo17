@@ -10,6 +10,7 @@
                     <field name="gender"/>
                     <field name="address"/>
                     <field name="phone"/>
+                    <field name="upcoming_appointments"/>
                 </tree>
             </field>
         </record>
@@ -29,35 +30,43 @@
                         <notebook>
                             <page string="Patient Details">
                                 <group>
-                                    <group>
-                                        <group string="Basic Info">
-                                            <field name="date_of_birth"/>
-                                            <field name="age"/>
-                                            <field name="gender"/>
-                                            <field name="phone"/>
-                                        </group>
-                                        <group string="address info">
-                                            <field name="street"/>
-                                            <field name="street2"/>
-                                            <field name="city"/>
-                                            <field name="zip"/>
-                                            <field name="country_id"/>
-                                        </group>
+                                    <group string="Basic Info">
+                                        <field name="date_of_birth"/>
+                                        <field name="age"/>
+                                        <field name="gender"/>
+                                        <field name="phone"/>
+                                    </group>
+                                    <group string="address info">
+                                        <field name="street"/>
+                                        <field name="street2"/>
+                                        <field name="city"/>
+                                        <field name="zip"/>
+                                        <field name="country_id"/>
+                                    </group>
 
-                                        <group string="Emergency Contact">
-                                            <field name="emergency_contact_name"/>
-                                            <field name="emergency_contact_number"/>
-                                        </group>
+                                    <group string="Emergency Contact">
+                                        <field name="emergency_contact_name"/>
+                                        <field name="emergency_contact_number"/>
+                                    </group>
 
-                                        <group string="Insurance Info">
-                                            <field name="is_insurance"/>
-                                            <field name="insurance_company" invisible="not is_insurance"/>
-                                            <field name="policy_number" invisible="not is_insurance"/>
-                                            <field name="expiry_date" invisible="not is_insurance"/>
-                                            <field name="coverage_details" invisible="not is_insurance"/>
-                                        </group>
+                                    <group string="Insurance Info">
+                                        <field name="is_insurance"/>
+                                        <field name="insurance_company" invisible="not is_insurance"/>
+                                        <field name="policy_number" invisible="not is_insurance"/>
+                                        <field name="expiry_date" invisible="not is_insurance"/>
+                                        <field name="coverage_details" invisible="not is_insurance"/>
                                     </group>
                                 </group>
+                            </page>
+                            <page string="Upcoming Appointments">
+                                <field name="upcoming_appointments">
+                                    <tree>
+                                        <field name="datetime"/>
+                                        <field name="doctor_id"/>
+                                        <field name="appointment_type"/>
+                                        <field name="status"/>
+                                    </tree>
+                                </field>
                             </page>
                             <page string="Medical History">
                                 <group>

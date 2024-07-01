@@ -19,14 +19,26 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <group>
+                        <h1>
                             <field name="name"/>
-                            <field name="phone"/>
-                        </group>
+                        </h1>
                         <group>
+                            <field name="phone"/>
                             <field name="specialty"/>
                             <field name="availability"/>
                         </group>
+                        <notebook>
+                            <page string="Upcoming Appointments">
+                                <field name="upcoming_appointments">
+                                    <tree>
+                                        <field name="datetime"/>
+                                        <field name="patient_id"/>
+                                        <field name="appointment_type"/>
+                                        <field name="status"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
