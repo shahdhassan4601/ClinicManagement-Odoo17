@@ -16,7 +16,14 @@
         id="clinic_appointment_menu"
         name="Appointment Managemnet"
         parent="clinic_root_menu"
-        action="appointment_management_action"
+        action="appointment_action_view"
+        />
+
+        <menuitem 
+        id="clinic_doctor_menu"
+        name="Doctor Dashboard"
+        parent="clinic_root_menu"
+        action="doctor_action_view"
         />
     </data>
 </odoo>

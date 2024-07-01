@@ -15,7 +15,7 @@
             </field>
         </record>
 
-        
+
         <!-- kanban view -->
         <record id="appointment_kanban_view" model="ir.ui.view">
             <field name="name">clinic.appointment.kanban</field>
@@ -71,7 +71,7 @@
         </record>
 
         <!-- appointment action -->
-        <record id="appointment_management_action" model="ir.actions.act_window">
+        <record id="appointment_action_view" model="ir.actions.act_window">
             <field name="name">Appointment Managemnet</field>
             <field name="res_model">clinic.appointment</field>
             <field name="view_mode">calendar,kanban,form</field>
