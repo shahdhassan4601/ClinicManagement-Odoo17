@@ -14,7 +14,7 @@
 
         <menuitem 
         id="clinic_appointment_menu"
-        name="Appointment Managemnet"
+        name="Appointment Management"
         parent="clinic_root_menu"
         action="appointment_action_view"
         />
@@ -31,6 +31,13 @@
         name="Treatment Management"
         parent="clinic_root_menu"
         action="treatment_action_view"
+        />
+
+        <menuitem 
+        id="clinic_medical_record_menu"
+        name="Medical Records Management"
+        parent="clinic_root_menu"
+        action="medical_record_action_view"
         />
     </data>
 </odoo>

@@ -11,10 +11,11 @@
         "security/ir.model.access.csv",
         "data/patient_sequence.xml",
         "data/appointment_sequence.xml",
-        "views/patient_dashboard_views.xml",
-        "views/appointment_management_views.xml",
-        "views/doctor_dashboard_views.xml",
-        "views/treatment_management_views.xml",
+        "views/clinic_patient_views.xml",
+        "views/clinic_appointment_views.xml",
+        "views/clinic_doctor_views.xml",
+        "views/clinic_treatment_views.xml",
+        "views/clinic_medical_record_views.xml",
         "views/clinic_menus.xml"
     ],
 }
