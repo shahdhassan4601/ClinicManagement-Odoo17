@@ -28,6 +28,8 @@ class ClinicAppointment(models.Model):
     
     treatment_id = fields.One2many('clinic.treatment','appointment_id', string='Treatment')
     
+    medical_record_id = fields.One2many('clinic.medical.record','appointment_id', string='Medical Record')
+    
     
     # overridden method create to add sequence
     @api.model

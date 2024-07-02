@@ -40,6 +40,9 @@ class ClinicPatient(models.Model):
     )
     
     
+    # medical record fields
+    medical_record = fields.One2many('clinic.medical.record', 'patient_id', string='Medical Records')   
+    
     # overridden method create to add sequence
     @api.model
     def create(self, vals):

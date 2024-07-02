@@ -35,6 +35,7 @@
                                         <field name="patient_id"/>
                                         <field name="appointment_type"/>
                                         <field name="status"/>
+                                        <field name="medical_record_id"/>
                                         <field name="treatment_id">
                                             <tree>    
                                                 <field name="treatment_details"/>

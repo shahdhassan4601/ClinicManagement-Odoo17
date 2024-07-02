@@ -69,9 +69,12 @@
                                 </field>
                             </page>
                             <page string="Medical History">
-                                <group>
-                                    <field name="is_insurance"/>
-                                </group>
+                                <field name="medical_record" readonly="1">
+                                    <tree>
+                                        <field name="treatment_ref" widget="many2many_tags"/>
+                                        <field name="attachment_ids"/>
+                                    </tree>
+                                </field>
                             </page>
                             <page string="Prescriptions">
                                 <group>
