@@ -77,9 +77,13 @@
                                 </field>
                             </page>
                             <page string="Prescriptions">
-                                <group>
-
-                                </group>
+                                <field name="prescription" readonly="1">
+                                    <tree>
+                                        <field name="medication_name"/>
+                                        <field name="dose"/>
+                                        <field name="frequency"/>
+                                    </tree>
+                                </field>
                             </page>
 
                         </notebook>

@@ -11,12 +11,14 @@ class ClinicTreatment(models.Model):
     
     # treatment fields
     treatment_diagnosis = fields.Text('Diagnosis')
-    treatment_prescription = fields.Text('Prescription')
+    treatment_prescription = fields.One2many('clinic.prescription', 'treatment_id', string='Prescription')
     treatment_procedure = fields.Text('Procedure')
     
     treatment_details = fields.Text('Treatment Details', compute='_compute_treatment_details')
     
-
+    # medical record fields
+    # medical_record = fields.One2many('clinic.medical.record', 'treatment_id', string='Medical Records')
+    
     notes = fields.Text('Notes')
     
     @api.depends('treatment_diagnosis', 'treatment_prescription', 'treatment_procedure')
