@@ -39,5 +39,12 @@
         parent="clinic_root_menu"
         action="medical_record_action_view"
         />
+
+        <menuitem 
+        id="clinic_prescription_menu"
+        name="Prescription Management"
+        parent="clinic_root_menu"
+        action="prescription_action_view"
+        />
     </data>
 </odoo>

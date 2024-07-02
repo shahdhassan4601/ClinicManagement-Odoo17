@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record id="medical_prescription_view" model="ir.ui.view">
+            <field name="name">clinic.prescription.tree</field>
+            <field name="model">clinic.prescription</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="patient_id"/>
+                    <field name="doctor_id"/>
+                    <field name="medication_name"/>
+                    <field name="dose"/>
+                    <field name="frequency"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="prescription_form_view" model="ir.ui.view">
+            <field name="name">clinic.prescription.form</field>
+            <field name="model">clinic.prescription</field>
+            <field name="arch" type="xml">
+               <form>
+                    <sheet>                            
+                        <h1>
+                            <field name="patient_id"/>
+                        </h1>
+
+                        <group>
+                            <group>
+                                <field name="doctor_id"/>
+                                <field name="treatment_id"/>
+
+                                <field name="notes"/>
+                            </group>
+                            <group>
+                                <field name="medication_name"/>
+                                <field name="dose"/>
+                                <field name="frequency"/>
+                            </group>
+                        </group>
+                    </sheet>
+               </form>
+            </field>
+        </record>
+
+
+        <!-- appointment action -->
+        <record id="prescription_action_view" model="ir.actions.act_window">
+            <field name="name">Prescription Management</field>
+            <field name="res_model">clinic.prescription</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
