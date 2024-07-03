@@ -39,7 +39,7 @@
 
                         <group>
                             <field name="treatment_prescription">
-                                <tree>
+                                <tree editable="bottom">
                                     <field name="medication_name"/>
                                     <field name="dose"/>
                                     <field name="frequency"/>

@@ -5,3 +5,5 @@ from . import clinic_treatment
 from . import clinic_medical_record
 from . import clinic_prescription
 from . import clinic_logs
+from . import account_move
+from . import account_move_line

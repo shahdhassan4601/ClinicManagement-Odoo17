@@ -8,6 +8,7 @@
                     <field name="create_uid"/>
                     <field name="patient_id"/>
                     <field name="appointment_id"/>
+                    <field name="doctor_id"/>
                     <field name="entry_datetime"/>
                     <field name="notes"/>
                 </tree>

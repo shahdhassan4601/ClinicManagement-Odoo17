@@ -6,10 +6,13 @@ class ClinicAppointment(models.Model):
     _name = 'clinic.appointment'
     _description = 'Appointment'
 
-    # Base fields
-    name = fields.Char('Name', compute='_compute_name', store=True)
-    appointments_id = fields.Char('Appointment', default='New', readonly=True)
+    # patient fields
+    name = fields.Char('Appointment', default='New', readonly=True)
+    # appointments_id = fields.Char('Appointment', default='New', readonly=True)
     patient_id = fields.Many2one('res.partner', string='Patient', required=True)
+    
+    # address computed field
+    address = fields.Char('Address', compute='_compute_address')
     datetime = fields.Datetime('Date and Time', required=True)
     doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
     appointment_type = fields.Selection([
@@ -34,15 +37,20 @@ class ClinicAppointment(models.Model):
     log_id = fields.One2many('clinic.logs','appointment_id', string='Log')
     
     
-    
-    
     # overridden method create to add sequence
     @api.model
     def create(self, vals):
         res = super(ClinicAppointment, self).create(vals)
-        if res.appointments_id == 'New':
-            res.appointments_id = self.env['ir.sequence'].next_by_code('appointment.sequence')
+        if res.name == 'New':
+            res.name = self.env['ir.sequence'].next_by_code('appointment.sequence')
         return res
+    
+    # # computed fields
+    # @api.depends('appointments_id')
+    # def _compute_name(self):
+    #     for record in self:
+    #         record.name = record.appointments_id
+    
     
     # constraints
     @api.constrains('datetime', 'doctor_id')
@@ -56,18 +64,6 @@ class ClinicAppointment(models.Model):
             if conflicting_appointments:
                 raise ValidationError('The doctor is already booked for this time slot. Please choose another time.')
             
-    # computed fields
-    @api.depends('appointments_id')
-    def _compute_name(self):
-        for record in self:
-            record.name = record.appointments_id
-            
-    # action
-    def action_cancel(self):
-        self.status = 'cancelled'
-        
-    def action_confirm(self):
-        self.status = 'confirmed'
         
         
     @api.model
@@ -76,8 +72,10 @@ class ClinicAppointment(models.Model):
         res.log_id.create({
             'patient_id': res.patient_id.id,
             'appointment_id': res.id,
+            'doctor_id': res.doctor_id.id,
             'create_uid': res.create_uid,
             'entry_datetime': res.datetime,
             'notes': res.notes
         })
         return res
+    

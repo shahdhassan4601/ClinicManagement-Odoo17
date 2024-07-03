@@ -48,6 +48,13 @@
         />
         
         <menuitem 
+        id="clinic_invoice_menu"
+        name="Invoices Management"
+        parent="clinic_root_menu"
+        action="invoice_action_view"
+        />
+
+        <menuitem 
         id="clinic_logs_menu"
         name="Log Management"
         parent="clinic_root_menu"

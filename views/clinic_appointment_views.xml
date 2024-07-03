@@ -1,6 +1,6 @@
 <odoo>
     <data>
-    
+
         <!-- calendar view -->
         <record id="appointment_calendar_view" model="ir.ui.view">
             <field name="name">clinic.appointment.calendar</field>
@@ -24,9 +24,9 @@
                 <kanban default_group_by="status">
                     <templates>
                         <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_card oe_kanban_global_click">
                                 <h2 style="margin: 0 0 20px 5px;">
-                                    <field name="appointments_id"/>
+                                    <field name="name"/>
                                 </h2>
                                 <div style="margin: 0 0 10px 5px;">
                                     <strong style="margin: 0 10px 0 0;">Patient:</strong>
@@ -58,8 +58,12 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <header>
+                            <!-- <button name="action_open_patient_form" type="object" string="Create New patient"/> -->
+                            <!-- <button name="action_view" type="object" string="View Patient Details"/> -->
+                        </header>
                         <h1 style="margin: 0 0 30px 0;">
-                            <field name="appointments_id"/>
+                            <field name="name"/>
                         </h1>
                         <group>
                             <field name="patient_id"/>
@@ -68,7 +72,7 @@
                             <field name="appointment_type"/>
                             <field name="status"/>
                             <field name="notes"/>
-                            <field name="treatment_id" readonly="1">
+                            <field name="treatment_id">
                                 <tree>
                                     <field name="treatment_details"/>
                                 </tree>
