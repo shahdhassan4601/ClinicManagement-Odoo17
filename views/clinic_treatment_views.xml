@@ -52,7 +52,7 @@
         </record>
 
 
-        <!-- appointment action -->
+        <!--  action -->
         <record id="treatment_action_view" model="ir.actions.act_window">
             <field name="name">Treatment Managemnet</field>
             <field name="res_model">clinic.treatment</field>

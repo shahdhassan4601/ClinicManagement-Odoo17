@@ -14,7 +14,7 @@ class ClinicPatient(models.Model):
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female')
-    ], string='Gender')
+    ], string='Gender', required=True)
     
     # address computed field
     address = fields.Char('Address', compute='_compute_address')
@@ -103,6 +103,3 @@ class ClinicPatient(models.Model):
         for record in self:
             if record.expiry_date and record.expiry_date < fields.Date.today():
                 raise ValidationError("Expiry Date must be in the future.")
-    
-
-    

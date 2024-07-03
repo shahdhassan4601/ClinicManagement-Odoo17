@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="logs_tree_view" model="ir.ui.view">
+            <field name="name">logs tree</field>
+            <field name="model">clinic.logs</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="create_uid"/>
+                    <field name="patient_id"/>
+                    <field name="appointment_id"/>
+                    <field name="entry_datetime"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- action -->
+        <record id="logs_action_view" model="ir.actions.act_window">
+            <field name="name">Log Management</field>
+            <field name="res_model">clinic.logs</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

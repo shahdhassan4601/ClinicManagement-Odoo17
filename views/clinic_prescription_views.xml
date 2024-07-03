@@ -28,7 +28,6 @@
                             <group>
                                 <field name="doctor_id"/>
                                 <field name="treatment_id"/>
-
                                 <field name="notes"/>
                             </group>
                             <group>
@@ -43,7 +42,7 @@
         </record>
 
 
-        <!-- appointment action -->
+        <!-- action -->
         <record id="prescription_action_view" model="ir.actions.act_window">
             <field name="name">Prescription Management</field>
             <field name="res_model">clinic.prescription</field>

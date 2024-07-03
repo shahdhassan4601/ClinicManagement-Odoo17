@@ -46,5 +46,12 @@
         parent="clinic_root_menu"
         action="prescription_action_view"
         />
+        
+        <menuitem 
+        id="clinic_logs_menu"
+        name="Log Management"
+        parent="clinic_root_menu"
+        action="logs_action_view"
+        />
     </data>
 </odoo>

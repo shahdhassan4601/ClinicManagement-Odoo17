@@ -17,6 +17,7 @@
         "views/clinic_treatment_views.xml",
         "views/clinic_medical_record_views.xml",
         "views/clinic_prescription_views.xml",
+        "views/clinic_logs_views.xml",
         "views/clinic_menus.xml"
     ],
 }
