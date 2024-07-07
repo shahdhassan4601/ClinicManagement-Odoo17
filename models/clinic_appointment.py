@@ -7,14 +7,14 @@ class ClinicAppointment(models.Model):
     _description = 'Appointment'
 
     # patient fields
-    name = fields.Char('Appointment', default='New', readonly=True)
-    # appointments_id = fields.Char('Appointment', default='New', readonly=True)
+    name = fields.Char(string='Name', readonly=True, defult='New')
     patient_id = fields.Many2one('res.partner', string='Patient', required=True)
     
     # address computed field
     address = fields.Char('Address', compute='_compute_address')
     datetime = fields.Datetime('Date and Time', required=True)
     doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
+    duration = fields.Float('Duration')
     appointment_type = fields.Selection([
         ('consultation', 'Consultation'),
         ('emergency', 'Emergency'),
@@ -40,9 +40,16 @@ class ClinicAppointment(models.Model):
     # overridden method create to add sequence
     @api.model
     def create(self, vals):
+        vals["name"] = self.env['ir.sequence'].next_by_code('appointment.sequence')
         res = super(ClinicAppointment, self).create(vals)
-        if res.name == 'New':
-            res.name = self.env['ir.sequence'].next_by_code('appointment.sequence')
+        res.log_id.create({
+            'patient_id': res.patient_id.id,
+            'appointment_id': res.id,
+            'doctor_id': res.doctor_id.id,
+            'create_uid': res.create_uid,
+            'entry_datetime': res.datetime,
+            'notes': res.notes
+        })
         return res
     
     # # computed fields
@@ -63,19 +70,4 @@ class ClinicAppointment(models.Model):
             ])
             if conflicting_appointments:
                 raise ValidationError('The doctor is already booked for this time slot. Please choose another time.')
-            
-        
-        
-    @api.model
-    def create(self, vals):
-        res = super(ClinicAppointment, self).create(vals)
-        res.log_id.create({
-            'patient_id': res.patient_id.id,
-            'appointment_id': res.id,
-            'doctor_id': res.doctor_id.id,
-            'create_uid': res.create_uid,
-            'entry_datetime': res.datetime,
-            'notes': res.notes
-        })
-        return res
     

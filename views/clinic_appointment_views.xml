@@ -6,10 +6,12 @@
             <field name="name">clinic.appointment.calendar</field>
             <field name="model">clinic.appointment</field>
             <field name="arch" type="xml">
-                <calendar string="Appointments" date_start="datetime" color="doctor_id">
+                <calendar string="Appointments" date_start="datetime" color="datetime" mode="week"
+                            form_view_id="clinic.appointment_form_view" date_delay="duration">
                     <field name="patient_id"/>
-                    <field name="doctor_id"/>
+                    <field name="doctor_id" avatar_field="avatar_128"/>
                     <field name="appointment_type"/>
+                    <field name="duration"/>
                     <field name="status"/>
                 </calendar>
             </field>
@@ -44,6 +46,10 @@
                                     <strong style="margin: 0 10px 0 0;">Type:</strong>
                                     <field name="appointment_type"/>
                                 </div>
+                                <div style="margin: 0 0 10px 5px;">
+                                    <strong style="margin: 0 10px 0 0;">Type:</strong>
+                                    <field name="duration"/>
+                                </div>
                             </div>
                         </t>
                     </templates>
@@ -70,6 +76,7 @@
                             <field name="datetime"/>
                             <field name="doctor_id"/>
                             <field name="appointment_type"/>
+                            <field name="duration"/>
                             <field name="status"/>
                             <field name="notes"/>
                             <field name="treatment_id">
