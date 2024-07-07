@@ -14,7 +14,7 @@ class ClinicAppointment(models.Model):
     address = fields.Char('Address', compute='_compute_address')
     datetime = fields.Datetime('Date and Time', required=True)
     doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
-    duration = fields.Float('Duration')
+    duration = fields.Float('Duration (Min)', default=20.0)
     appointment_type = fields.Selection([
         ('consultation', 'Consultation'),
         ('emergency', 'Emergency'),

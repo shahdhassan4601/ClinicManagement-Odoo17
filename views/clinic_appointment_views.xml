@@ -7,9 +7,10 @@
             <field name="model">clinic.appointment</field>
             <field name="arch" type="xml">
                 <calendar string="Appointments" date_start="datetime" color="datetime" mode="week"
-                            form_view_id="clinic.appointment_form_view" date_delay="duration">
+                            form_view_id="clinic.appointment_form_view" date_delay="duration" 
+                            event_open_popup="true" quick_create="0">
                     <field name="patient_id"/>
-                    <field name="doctor_id" avatar_field="avatar_128"/>
+                    <field name="doctor_id" filters="1" avatar_field="avatar_128"/>
                     <field name="appointment_type"/>
                     <field name="duration"/>
                     <field name="status"/>
@@ -76,7 +77,7 @@
                             <field name="datetime"/>
                             <field name="doctor_id"/>
                             <field name="appointment_type"/>
-                            <field name="duration"/>
+                            <field name="duration" widget="float_time"/>
                             <field name="status"/>
                             <field name="notes"/>
                             <field name="treatment_id">
