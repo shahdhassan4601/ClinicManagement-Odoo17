@@ -7,14 +7,14 @@ class ClinicAppointment(models.Model):
     _description = 'Appointment'
 
     # patient fields
-    name = fields.Char(string='Name', readonly=True, defult='New')
+    name = fields.Char(string='Name', readonly=True, default='New')
     patient_id = fields.Many2one('res.partner', string='Patient', required=True)
     
     # address computed field
     address = fields.Char('Address', compute='_compute_address')
     datetime = fields.Datetime('Date and Time', required=True)
     doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
-    duration = fields.Float('Duration')
+    duration = fields.Float('Duration (hh:mm)', default=(1/3))
     appointment_type = fields.Selection([
         ('consultation', 'Consultation'),
         ('emergency', 'Emergency'),
