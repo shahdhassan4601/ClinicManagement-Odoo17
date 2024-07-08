@@ -13,7 +13,15 @@ class ClinicAppointment(models.Model):
     # address computed field
     address = fields.Char('Address', compute='_compute_address')
     datetime = fields.Datetime('Date and Time', required=True)
+    
+    
     doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
+    doctor_availability = fields.Many2one('clinic.doctor.availability', string='Doctor Availability')
+    # doctor_availability_from = fields.Float('Doctor Availability From', related='doctor_availability.start_datetime')
+    # doctor_availability_to = fields.Float('Doctor Availability To', related='doctor_availability.end_datetime')
+    
+    
+    
     duration = fields.Float('Duration (hh:mm)', default=(1/3))
     appointment_type = fields.Selection([
         ('consultation', 'Consultation'),

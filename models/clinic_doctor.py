@@ -20,26 +20,16 @@ class ClinicDoctor(models.Model):
     
     
     # Computed field
-    availability = fields.Char(string='Availability', compute='_compute_availability')
-
+    doctor_availability = fields.One2many('clinic.doctor.availability', 'doctor_id')
+    
     appointment_id = fields.One2many('clinic.appointment', 'doctor_id', string='Appointments')
     upcoming_appointments = fields.One2many('clinic.appointment', 'doctor_id', compute='_compute_upcoming_appointments')
         
     
-    @api.depends('appointment_id')
-    def _compute_availability(self):
-        for record in self:
-            # Example of a time range to check (these should be provided by the user)
-            start_datetime = fields.Datetime.now()
-            end_datetime = fields.Datetime.now() + timedelta(minutes=15)
-
-            appointments = record.appointment_id.filtered(
-                lambda a: a.status != 'canceled' and 
-                a.datetime < end_datetime and 
-                a.datetime + timedelta(minutes=15) > start_datetime
-            )
-            availability = 'Available' if not appointments else 'Unavailable'
-            record.availability = availability
+    # @api.depends('appointment_id')
+    # def _compute_availability(self):
+    #     for record in self:
+            
                 
     @api.depends('appointment_id')
     def _compute_upcoming_appointments(self):

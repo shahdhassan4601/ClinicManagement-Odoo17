@@ -10,7 +10,9 @@
                             form_view_id="clinic.appointment_form_view" date_delay="duration" 
                             event_open_popup="true" quick_create="0">
                     <field name="patient_id"/>
-                    <field name="doctor_id" filters="1" avatar_field="avatar_128"/>
+                    <field name="doctor_id" filters="1" avatar_field="avatar_128" />
+                    <!-- <field name="doctor_availability_from" filters="1"/>
+                    <field name="doctor_availability_to" filters="1"/> -->
                     <field name="appointment_type"/>
                     <field name="duration"/>
                     <field name="status"/>
