@@ -94,6 +94,24 @@
             </field>
         </record>
 
+        <!-- search view -->
+        <record id="clinic_appointment_search" model="ir.ui.view">
+            <field name="name">clinic.appointment.search</field>
+            <field name="model">clinic.appointment</field>
+            <field name="arch" type="xml">
+                <search>
+                <!-- add fields to search by them in search bar -->
+                    <field name="patient_id"/>
+                    <field name="doctor_id"/>
+                    <field name="doctor_speciality"/>
+                    <field name="appointment_type"/>
+                    <field name="status"/>
+                    <filter string="Upcoming Appointments" name="upcoming_appointments" domain="[('datetime', '>', context_today())]"/>
+
+                </search>
+            </field>
+        </record>
+
         <!-- appointment action -->
         <record id="appointment_action_view" model="ir.actions.act_window">
             <field name="name">Appointment Managemnet</field>
