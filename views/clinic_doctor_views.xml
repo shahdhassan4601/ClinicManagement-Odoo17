@@ -26,22 +26,22 @@
                             <field name="specialty"/>
                         </group>
                         <notebook>
-                            <page string="Upcoming Appointments">
-                                <field name="upcoming_appointments">
-                                    <tree>
-                                        <field name="datetime"/>
-                                        <field name="patient_id"/>
-                                        <field name="appointment_type"/>
-                                        <field name="status"/>
-                                        <field name="medical_record_id"/>
-                                        <field name="treatment_id">
-                                            <tree>    
-                                                <field name="treatment_details"/>
-                                            </tree>
-                                        </field>
-                                    </tree>
-                                </field>
-                            </page>
+                                <page string="Upcoming Appointments">
+                                    <field name="reversed_appointments">
+                                        <tree>
+                                            <field name="datetime"/>
+                                            <field name="patient_id"/>
+                                            <field name="appointment_type"/>
+                                            <field name="status"/>
+                                            <field name="medical_record_id"/>
+                                            <field name="treatment_id">
+                                                <tree>    
+                                                    <field name="treatment_details"/>
+                                                </tree>
+                                            </field>
+                                        </tree>
+                                    </field>
+                                </page>
                             <page string="Doctor Availability">
                                 <field name="doctor_availability">
                                     <tree editable="1">

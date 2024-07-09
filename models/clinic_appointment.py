@@ -8,14 +8,30 @@ class ClinicAppointment(models.Model):
 
     # patient fields
     name = fields.Char(string='Name', readonly=True, default='New')
-    patient_id = fields.Many2one('res.partner', string='Patient', required=True)
+    patient_id = fields.Many2one('res.partner', string='Patient')
     
     # address computed field
     address = fields.Char('Address', compute='_compute_address')
-    datetime = fields.Datetime('Date and Time', required=True)
+    datetime = fields.Datetime('Date and Time')
     
     
-    doctor_id = fields.Many2one('res.users', string='Doctor', required=True)
+    doctor_id = fields.Many2one('res.users', string='Doctor')
+    doctor_speciality = fields.Selection([
+        ('general', 'General'),
+        ('cardiology', 'Cardiology'),
+        ('orthopedics', 'Orthopedics'),
+        ('pediatrics', 'Pediatrics'),
+        ('gynaecology', 'Gynaecology'),
+        ('dermatology', 'Dermatology'),
+        ('urology', 'Urology'),
+        ('neurology', 'Neurology'),
+        ('oncology', 'Oncology'),
+        ('obstetrics', 'Obstetrics'),
+        ('emergency', 'Emergency'),
+        ('surgery', 'Surgery'),
+        ('dentistry', 'Dentistry'),
+        ('gastroenterology', 'Gastroenterology'),
+    ], string='Doctor Speciality', related='doctor_id.specialty')
     doctor_availability = fields.Many2one('clinic.doctor.availability', string='Doctor Availability')
     # doctor_availability_from = fields.Float('Doctor Availability From', related='doctor_availability.start_datetime')
     # doctor_availability_to = fields.Float('Doctor Availability To', related='doctor_availability.end_datetime')
@@ -28,13 +44,14 @@ class ClinicAppointment(models.Model):
         ('emergency', 'Emergency'),
         ('checkup', 'Checkup'),
         ('surgery', 'Surgery'),
-    ], string='Appointment Type', required=True)
+    ], string='Appointment Type')
     
     status = fields.Selection([
+        ('available', 'Available'),
         ('pending', 'Pending'),
         ('cancelled', 'Cancelled'),
         ('confirmed', 'Confirmed'),
-    ], default='pending', required=True)
+    ], default='available')
     
     notes = fields.Text('Notes')
     
@@ -60,22 +77,19 @@ class ClinicAppointment(models.Model):
         })
         return res
     
-    # # computed fields
-    # @api.depends('appointments_id')
-    # def _compute_name(self):
-    #     for record in self:
-    #         record.name = record.appointments_id
-    
-    
-    # constraints
-    @api.constrains('datetime', 'doctor_id')
-    def _check_conflict(self):
+    @api.onchange('patient_id')
+    def action_reserve(self):
         for record in self:
-            conflicting_appointments = self.search([
-                ('doctor_id', '=', record.doctor_id.id),
-                ('datetime', '=', record.datetime),
-                ('id', '!=', record.id)
-            ])
-            if conflicting_appointments:
-                raise ValidationError('The doctor is already booked for this time slot. Please choose another time.')
+            if record.patient_id:
+                record.status = 'pending'
     
+    def patient_create_action(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'New Patient',
+            'res_model': 'res.partner',  # Replace with your patient model name
+            'view_mode': 'form',
+            'view_id': self.env.ref('clinic.patient_views_form').id,  # Replace with your patient form view id
+            'target': 'new',  # You can use 'new' to open in a new window
+            'context': self.env.context
+        }

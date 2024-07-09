@@ -7,15 +7,20 @@ class ClinicDoctor(models.Model):
     _inherit = 'res.users'
 
     specialty = fields.Selection([
-        ('general', 'General Practitioner'),
-        ('cardiology', 'Cardiologist'),
-        ('dermatology', 'Dermatologist'),
-        ('neurology', 'Neurologist'),
-        ('orthopedics', 'Orthopedist'),
-        ('pediatrics', 'Pediatrician'),
-        ('psychiatry', 'Psychiatrist'),
-        ('radiology', 'Radiologist'),
-        ('surgery', 'Surgeon'),
+        ('general', 'General'),
+        ('cardiology', 'Cardiology'),
+        ('orthopedics', 'Orthopedics'),
+        ('pediatrics', 'Pediatrics'),
+        ('gynaecology', 'Gynaecology'),
+        ('dermatology', 'Dermatology'),
+        ('urology', 'Urology'),
+        ('neurology', 'Neurology'),
+        ('oncology', 'Oncology'),
+        ('obstetrics', 'Obstetrics'),
+        ('emergency', 'Emergency'),
+        ('surgery', 'Surgery'),
+        ('dentistry', 'Dentistry'),
+        ('gastroenterology', 'Gastroenterology'),
     ], string='Specialty')
     
     
@@ -23,7 +28,9 @@ class ClinicDoctor(models.Model):
     doctor_availability = fields.One2many('clinic.doctor.availability', 'doctor_id')
     
     appointment_id = fields.One2many('clinic.appointment', 'doctor_id', string='Appointments')
-    upcoming_appointments = fields.One2many('clinic.appointment', 'doctor_id', compute='_compute_upcoming_appointments')
+    # patient_id = fields.
+    available_appointments = fields.One2many('clinic.appointment', 'doctor_id', compute='_compute_available_appointments')
+    reversed_appointments = fields.One2many('clinic.appointment', 'doctor_id', compute='_compute_reserved_appointments')
         
     
     # @api.depends('appointment_id')
@@ -32,10 +39,16 @@ class ClinicDoctor(models.Model):
             
                 
     @api.depends('appointment_id')
-    def _compute_upcoming_appointments(self):
+    def _compute_available_appointments(self):
         for record in self:
-            record.upcoming_appointments = record.appointment_id.filtered(
-                lambda a: a.status != 'canceled' and a.datetime and a.datetime > fields.Datetime.now()
+            record.available_appointments = record.appointment_id.filtered(
+                lambda a: a.status == 'available' and a.datetime and a.datetime > fields.Datetime.now()
+            )
+    @api.depends('appointment_id')
+    def _compute_reserved_appointments(self):
+        for record in self:
+            record.reversed_appointments = record.appointment_id.filtered(
+                lambda a: a.status == 'pending' and a.datetime and a.datetime > fields.Datetime.now()
             )
 
             

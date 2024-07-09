@@ -10,9 +10,8 @@
                             form_view_id="clinic.appointment_form_view" date_delay="duration" 
                             event_open_popup="true" quick_create="0">
                     <field name="patient_id"/>
-                    <field name="doctor_id" filters="1" avatar_field="avatar_128" />
-                    <!-- <field name="doctor_availability_from" filters="1"/>
-                    <field name="doctor_availability_to" filters="1"/> -->
+                    <field name="doctor_id" filters="1" avatar_field="avatar_128"/>
+                    <field name="doctor_speciality" filters="1"/>
                     <field name="appointment_type"/>
                     <field name="duration"/>
                     <field name="status"/>
@@ -68,19 +67,21 @@
                 <form>
                     <sheet>
                         <header>
-                            <!-- <button name="action_open_patient_form" type="object" string="Create New patient"/> -->
-                            <!-- <button name="action_view" type="object" string="View Patient Details"/> -->
+                            <h1 style="margin: 0 0 30px 0;">
+                                <field name="name"/>
+                            </h1>
+                            <field name="status" widget="statusbar" statusbar_visible="available,pending,cancelled,confirmed"/>
                         </header>
-                        <h1 style="margin: 0 0 30px 0;">
-                            <field name="name"/>
-                        </h1>
                         <group>
                             <field name="patient_id"/>
+                            
+                            <button name="patient_create_action" string="Create" type="object" class="oe_inline oe_highlight"/>
+                            <separator/>
+
                             <field name="datetime"/>
                             <field name="doctor_id"/>
                             <field name="appointment_type"/>
                             <field name="duration" widget="float_time"/>
-                            <field name="status"/>
                             <field name="notes"/>
                             <field name="treatment_id">
                                 <tree>
