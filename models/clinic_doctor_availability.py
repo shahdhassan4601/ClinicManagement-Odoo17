@@ -1,4 +1,5 @@
 from datetime import date, datetime, time, timedelta
+from xml.dom import ValidationErr
 import pytz
 
 from odoo import api, fields, models
@@ -29,8 +30,13 @@ class DoctorAvailability(models.Model):
         hours = int(res.start_datetime)  # Get the integer part for hours
         minutes = int((res.start_datetime - hours) * 60)  # Calculate minutes
 
-        current_date = datetime.combine(date.today(), time(hours, minutes, 0))
-        utc_current_date = current_date.astimezone(pytz.UTC)     
+        
+        current_date = datetime.combine(date.today(), time(hours, minutes, 0, tzinfo=pytz.UTC))
+        current_date = current_date.astimezone(pytz.timezone('UTC'))
+        
+        # raise models.ValidationError(f'{current_date}')
+        
+        # current_date = current_date + timedelta(hours=3)   
         end_date = current_date + timedelta(days=30)
         
         diff = 1
@@ -42,13 +48,14 @@ class DoctorAvailability(models.Model):
                 while x:
                     self.env['clinic.appointment'].create({
                         'doctor_id': res.doctor_id.id,
-                        'datetime': utc_current_date.strftime("%Y-%m-%d %H:%M:%S"),
+                        'datetime': current_date.strftime("%Y-%m-%d %H:%M:%S"),
                     })
-                    utc_current_date += timedelta(hours=1/3)
+                    current_date += timedelta(hours=1/3)
                     x-=1
                 # reset curent date time to 
-            current_date = datetime.combine(date.today() + timedelta(days=diff), time(hours, minutes, 0))
-            utc_current_date = current_date.astimezone(pytz.UTC)
+            current_date = datetime.combine(date.today() + timedelta(days=diff), time(hours, minutes, 0), tzinfo=pytz.UTC)
+            current_date = current_date.astimezone(pytz.timezone('UTC'))
+            # current_date = current_date + timedelta(hours=3)   
             
             diff += 1
     

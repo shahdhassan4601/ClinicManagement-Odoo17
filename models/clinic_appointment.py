@@ -11,7 +11,6 @@ class ClinicAppointment(models.Model):
     patient_id = fields.Many2one('res.partner', string='Patient')
     
     # address computed field
-    address = fields.Char('Address', compute='_compute_address')
     datetime = fields.Datetime('Date and Time')
     
     

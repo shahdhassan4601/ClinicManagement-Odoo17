@@ -46,8 +46,8 @@
                                 <field name="doctor_availability">
                                     <tree editable="1">
                                         <field name="week_day"/>
-                                        <field name="start_datetime"/>
-                                        <field name="end_datetime"/>
+                                        <field name="start_datetime" widget="float_time"/>
+                                        <field name="end_datetime" widget="float_time"/>
                                     </tree>
                                 </field>
                             </page>
