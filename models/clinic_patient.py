@@ -16,6 +16,9 @@ class ClinicPatient(models.Model):
         ('female', 'Female')
     ], string='Gender', required=True)
     
+    is_patient = fields.Boolean(string='Is a Patient', default=False)
+
+    
     # address computed field
     address = fields.Char('Address', compute='_compute_address')
     
@@ -50,6 +53,7 @@ class ClinicPatient(models.Model):
     @api.model
     def create(self, vals):
         res = super(ClinicPatient, self).create(vals)
+        res.is_patient = True
         if res.patient_id == 'New':
             res.patient_id = self.env['ir.sequence'].next_by_code('patient.sequence')
         return res

@@ -96,6 +96,7 @@
             <field name="name">Patient Dashboard</field>
             <field name="res_model">res.partner</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_patient', '=', True)]</field>
         </record>
 
 
