@@ -23,6 +23,7 @@ class ClinicDoctor(models.Model):
         ('gastroenterology', 'Gastroenterology'),
     ], string='Specialty')
     
+    is_doctor = fields.Boolean('Is Doctor')
     
     # Computed field
     doctor_availability = fields.One2many('clinic.doctor.availability', 'doctor_id')

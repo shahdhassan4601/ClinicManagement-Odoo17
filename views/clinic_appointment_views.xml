@@ -13,7 +13,7 @@
                     <field name="doctor_id" filters="1" avatar_field="avatar_128"/>
                     <field name="doctor_speciality" filters="1"/>
                     <field name="appointment_type"/>
-                    <field name="duration"/>
+                    <field name="duration" widget="float_time"/>
                     <field name="status"/>
                 </calendar>
             </field>
@@ -25,7 +25,7 @@
             <field name="name">clinic.appointment.kanban</field>
             <field name="model">clinic.appointment</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="status">
+                <kanban default_group_by="status" create="0">
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_card oe_kanban_global_click">
@@ -45,12 +45,12 @@
                                     <field name="doctor_id"/>
                                 </div>
                                 <div style="margin: 0 0 10px 5px;">
-                                    <strong style="margin: 0 10px 0 0;">Type:</strong>
+                                    <strong style="margin: 0 10px 0 0;">Appointment Type:</strong>
                                     <field name="appointment_type"/>
                                 </div>
                                 <div style="margin: 0 0 10px 5px;">
-                                    <strong style="margin: 0 10px 0 0;">Type:</strong>
-                                    <field name="duration"/>
+                                    <strong style="margin: 0 10px 0 0;">Duration:</strong>
+                                    <field name="duration" widget="float_time"/>
                                 </div>
                             </div>
                         </t>
@@ -73,13 +73,13 @@
                             <field name="status" widget="statusbar" statusbar_visible="available,pending,cancelled,confirmed"/>
                         </header>
                         <group>
-                            <field name="patient_id"/>
+                            <field name="patient_id" domain="[('is_patient', '=', True)]"/>
                             
                             <button name="patient_create_action" string="Create" type="object" class="oe_inline oe_highlight"/>
                             <separator/>
 
                             <field name="datetime"/>
-                            <field name="doctor_id"/>
+                            <field name="doctor_id" domain="[('is_doctor', '=', True)]"/>
                             <field name="appointment_type"/>
                             <field name="duration" widget="float_time"/>
                             <field name="notes"/>

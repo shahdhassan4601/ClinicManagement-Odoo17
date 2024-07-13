@@ -53,7 +53,6 @@ class ClinicPatient(models.Model):
     @api.model
     def create(self, vals):
         res = super(ClinicPatient, self).create(vals)
-        res.is_patient = True
         if res.patient_id == 'New':
             res.patient_id = self.env['ir.sequence'].next_by_code('patient.sequence')
         return res

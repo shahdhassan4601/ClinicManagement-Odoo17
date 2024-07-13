@@ -6,6 +6,8 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
+                    <field name="login" string="Email Address"/>
+                    <field name="phone"/>
                     <field name="specialty"/>
                     <field name="upcoming_appointments"/>
                 </tree>
@@ -19,11 +21,12 @@
                 <form>
                     <sheet>
                         <h1>
-                            <field name="name"/>
+                            <field name="name" placeholder="name"/>
                         </h1>
                         <group>
-                            <field name="phone"/>
-                            <field name="specialty"/>
+                            <field name="login" string="Email Address" placeholder="admin@odoo.com"/>
+                            <field name="phone" placeholder="xxx-xxxx-xxxx"/>
+                            <field name="specialty" placeholder="speciality"/>
                         </group>
                         <notebook>
                                 <page string="Upcoming Appointments">
@@ -61,6 +64,8 @@
             <field name="name">Doctor Dashboard</field>
             <field name="res_model">res.users</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'default_is_doctor': 'True'}</field>
+            <field name="domain">[('is_doctor', '=', True)]</field>
         </record>
 
 
