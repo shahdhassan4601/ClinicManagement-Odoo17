@@ -6,14 +6,13 @@
             <field name="name">clinic.appointment.calendar</field>
             <field name="model">clinic.appointment</field>
             <field name="arch" type="xml">
-                <calendar string="Appointments" date_start="datetime" color="datetime" mode="week"
+                <calendar string="Appointments" date_start="datetime" color="datetime" mode="month"
                             form_view_id="clinic.appointment_form_view" date_delay="duration" 
                             event_open_popup="true" quick_create="0">
                     <field name="patient_id"/>
                     <field name="doctor_id" filters="1" avatar_field="avatar_128"/>
-                    <field name="doctor_speciality" filters="1"/>
+                    <field name="doctor_speciality"/>
                     <field name="appointment_type"/>
-                    <field name="duration" widget="float_time"/>
                     <field name="status"/>
                 </calendar>
             </field>
@@ -25,7 +24,8 @@
             <field name="name">clinic.appointment.kanban</field>
             <field name="model">clinic.appointment</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="status" create="0">
+                <kanban default_group_by="status" create="0" class="o_kanban_small_column o_kanban_project_tasks">
+                    <field name="status"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_card oe_kanban_global_click">
@@ -80,6 +80,7 @@
 
                             <field name="datetime"/>
                             <field name="doctor_id" domain="[('is_doctor', '=', True)]"/>
+                            <field name="doctor_speciality"/>
                             <field name="appointment_type"/>
                             <field name="duration" widget="float_time"/>
                             <field name="notes"/>
@@ -111,12 +112,12 @@
                 </search>
             </field>
         </record>
-
+    
         <!-- appointment action -->
         <record id="appointment_action_view" model="ir.actions.act_window">
             <field name="name">Appointment Managemnet</field>
             <field name="res_model">clinic.appointment</field>
-            <field name="view_mode">calendar,kanban,form</field>
+            <field name="view_mode">calendar,kanban,form,tree</field>
         </record>
     </data>
 </odoo>

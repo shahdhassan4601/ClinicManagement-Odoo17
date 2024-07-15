@@ -1,3 +1,4 @@
+from datetime import timedelta
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -15,29 +16,10 @@ class ClinicAppointment(models.Model):
     
     
     doctor_id = fields.Many2one('res.users', string='Doctor')
-    doctor_speciality = fields.Selection([
-        ('general', 'General'),
-        ('cardiology', 'Cardiology'),
-        ('orthopedics', 'Orthopedics'),
-        ('pediatrics', 'Pediatrics'),
-        ('gynaecology', 'Gynaecology'),
-        ('dermatology', 'Dermatology'),
-        ('urology', 'Urology'),
-        ('neurology', 'Neurology'),
-        ('oncology', 'Oncology'),
-        ('obstetrics', 'Obstetrics'),
-        ('emergency', 'Emergency'),
-        ('surgery', 'Surgery'),
-        ('dentistry', 'Dentistry'),
-        ('gastroenterology', 'Gastroenterology'),
-    ], string='Doctor Speciality', related='doctor_id.specialty')
+    doctor_speciality = fields.Selection(string='Doctor Speciality', related='doctor_id.specialty')
     doctor_availability = fields.Many2one('clinic.doctor.availability', string='Doctor Availability')
-    # doctor_availability_from = fields.Float('Doctor Availability From', related='doctor_availability.start_datetime')
-    # doctor_availability_to = fields.Float('Doctor Availability To', related='doctor_availability.end_datetime')
-    
-    
-    
-    duration = fields.Float('Duration (hh:mm)', default=(1/3))
+
+    duration = fields.Float('Duration (hh:mm)', default=(0.25))
     appointment_type = fields.Selection([
         ('consultation', 'Consultation'),
         ('emergency', 'Emergency'),
@@ -77,7 +59,7 @@ class ClinicAppointment(models.Model):
         return res
     
     @api.onchange('patient_id')
-    def action_reserve(self):
+    def _onchange_patient_id(self):
         for record in self:
             if record.patient_id:
                 record.status = 'pending'
@@ -90,5 +72,5 @@ class ClinicAppointment(models.Model):
             'view_mode': 'form',
             'view_id': self.env.ref('clinic.patient_views_form').id,  # Replace with your patient form view id
             'target': 'new',  # You can use 'new' to open in a new window
-            'context': self.env.context
+            'context': {'default_is_patient': 'True'}
         }
