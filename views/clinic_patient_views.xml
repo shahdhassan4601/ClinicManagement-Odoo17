@@ -77,13 +77,13 @@
                                 </field>
                             </page>
                             <page string="Prescriptions">
-                                <field name="prescription" readonly="1">
+                                <!-- <field name="prescription" readonly="1">
                                     <tree>
                                         <field name="medication_name"/>
                                         <field name="dose"/>
                                         <field name="frequency"/>
                                     </tree>
-                                </field>
+                                </field> -->
                             </page>
 
                         </notebook>

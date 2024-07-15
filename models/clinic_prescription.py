@@ -6,15 +6,15 @@ class ClinicPrescription(models.Model):
     _description = 'Prescription'
 
     name = fields.Char(string='Name', readonly=True, default='New')
+    datetime = fields.Datetime(string='Date', default=fields.Datetime.now())
+    
+    
     doctor_id = fields.Many2one('res.users', string='Doctor')
     patient_id = fields.Many2one('res.partner', string='Patient')
     treatment_id = fields.Many2one('clinic.treatment', string='Treatment')
     appointment_id = fields.Many2one('clinic.appointment', string='Appointment')
-    
-    # medication details
-    medication_name = fields.Char(string='Medication Name')
-    dose = fields.Char(string='Dose')
-    frequency = fields.Integer(string='Frequency (hours)')
+
+    medicines = fields.One2many('clinic.medicine','prescription_id', string='Medicines')
     
     notes = fields.Text(string='Notes')
     
