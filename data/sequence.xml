@@ -10,17 +10,23 @@
         <record id="appointment_sequence" model="ir.sequence">
             <field name="name">Appointment Sequence</field>
             <field name="code">appointment.sequence</field>
-            <field name="prefix">A</field>
-            <field name="padding">6</field>
+            <field name="prefix">AP</field>
+            <field name="padding">8</field>
         </record>
 
         <record id="invoice_sequence" model="ir.sequence">
             <field name="name">Invoices Sequence</field>
             <field name="code">invoice.sequence</field>
             <field name="prefix">IN</field>
-            <field name="padding">5</field>
+            <field name="padding">6</field>
         </record>
-
+        
+        <record id="prescription_sequence" model="ir.sequence">
+            <field name="name">Prescription Sequence</field>
+            <field name="code">prescription.sequence</field>
+            <field name="prefix">PR</field>
+            <field name="padding">6</field>
+        </record>
 
     </data>
 </odoo>
