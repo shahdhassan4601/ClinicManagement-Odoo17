@@ -37,11 +37,9 @@
                                             <field name="appointment_type"/>
                                             <field name="status"/>
                                             <field name="medical_record_id"/>
-                                            <field name="treatment_id">
-                                                <tree>    
-                                                    <field name="treatment_details"/>
-                                                </tree>
-                                            </field>
+
+                                            <button name="prescription_wizard_action" string="Prescription" type="object" class="btn-primary"/>
+                                            
                                         </tree>
                                     </field>
                                 </page>
