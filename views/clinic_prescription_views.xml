@@ -38,7 +38,7 @@
                             <page string="Details">
                                 <field name="medicines">
                                     <tree editable="1">
-                                        <field name="product_id"/>
+                                        <field name="product_id" domain="[('type', '=', 'product')]"/>
                                         <field name="dose"/>
                                         <field name="frequency"/>
                                         <field name="notes"/>

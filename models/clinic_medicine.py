@@ -12,3 +12,4 @@ class ClinicProduct(models.Model):
     notes = fields.Text(string='Notes')
     
     prescription_id = fields.Many2one('clinic.prescription', string='Prescription')
+    treatment_id = fields.Many2one('clinic.treatment', string='Treatment')
