@@ -77,18 +77,22 @@
                             
                             <button name="patient_create_action" string="Create" type="object" class="oe_inline oe_highlight"/>
                             <separator/>
-
+                            
                             <field name="datetime"/>
+
+                            <button name="appointment_start_time" string="Start" type="object" class="oe_inline oe_highlight" invisible="start_time"/>
+                            <button name="appointment_end_time" string="End" type="object" class="oe_inline oe_highlight" invisible="end_time"/>
+                            <separator />
+                            <field name="start_time" readonly="1"/>
+                            <field name="end_time" readonly="1"/>
+
+                            
+                            <!-- <separator /> -->
                             <field name="doctor_id" domain="[('is_doctor', '=', True)]"/>
                             <field name="doctor_speciality"/>
                             <field name="appointment_type"/>
                             <field name="duration" widget="float_time"/>
                             <field name="notes"/>
-                            <!-- <field name="treatment_id">
-                                <tree>
-                                    <field name="treatment_details"/>
-                                </tree>
-                            </field> -->
                         </group>
                     </sheet>
                 </form>

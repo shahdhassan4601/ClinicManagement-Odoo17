@@ -19,7 +19,13 @@ class ClinicAppointment(models.Model):
     doctor_speciality = fields.Selection(string='Doctor Speciality', related='doctor_id.specialty')
     doctor_availability = fields.Many2one('clinic.doctor.availability', string='Doctor Availability')
 
-    duration = fields.Float('Duration (hh:mm)', default=(0.25))
+
+    duration = fields.Float('Duration (hh:mm)', compute='_compute_duration')
+    
+    start_time = fields.Datetime('Start Time')
+    end_time = fields.Datetime('End Time')
+    
+    
     appointment_type = fields.Selection([
         ('consultation', 'Consultation'),
         ('emergency', 'Emergency'),
@@ -105,3 +111,22 @@ class ClinicAppointment(models.Model):
                 'default_datetime': self.datetime
             },
         }
+        
+    @api.depends('start_time', 'end_time')
+    def _compute_duration(self):
+        for record in self:
+            if record.start_time and record.end_time:
+                # Calculate duration in hours
+                duration_hours = (record.end_time - record.start_time).total_seconds() / 3600.0
+                record.duration = duration_hours
+            else:
+                record.duration = 0.0
+    
+    def appointment_start_time(self):
+        self.write({'status': 'confirmed'})
+        self.start_time = fields.Datetime.now()
+        
+    def appointment_end_time(self):
+        self.end_time = fields.Datetime.now()
+        self._compute_duration()
+        
