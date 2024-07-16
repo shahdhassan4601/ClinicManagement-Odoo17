@@ -27,6 +27,12 @@
             <field name="prefix">PR</field>
             <field name="padding">6</field>
         </record>
-
+        
+        <record id="treatment_sequence" model="ir.sequence">
+            <field name="name">Treatment Sequence</field>
+            <field name="code">treatment.sequence</field>
+            <field name="prefix">TR</field>
+            <field name="padding">6</field>
+        </record>
     </data>
 </odoo>

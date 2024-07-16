@@ -8,7 +8,6 @@
                     <field name="appointment_id"/>
                     <field name="patient_id"/>
                     <field name="doctor_id"/>
-                    <field name="treatment_details"/>
                 </tree>
             </field>
         </record>
@@ -20,32 +19,43 @@
                <form string="treatment form">
                     <sheet>
                         <h1>
-                            <field name="patient_id"/>
+                            <field name="name"/>
                         </h1>
                         <group>
                             <group>
-                                <field name="appointment_id"/>
-                            </group>
-                            <group>
+                                <field name="patient_id"/>
                                 <field name="doctor_id"/>
+                                <field name="notes"/>
                             </group>
                             <group>
-                                <field name="treatment_diagnosis"/>
-                            </group>
-                            <group>
-                                <field name="treatment_procedure"/>
+                                <field name="appointment_id"/>
+                                <field name="datetime"/>
                             </group>
                         </group>
-
+                        
                         <group>
-                            <!-- <field name="treatment_prescription">
-                                <tree editable="bottom">
-                                    <field name="medication_name"/>
-                                    <field name="dose"/>
-                                    <field name="frequency"/>
-                                </tree>
-                            </field> -->
+                            <field name="treatment_diagnosis"/>
                         </group>
+                        
+                        <notebook>
+                            <page string="Prescripted Medication">
+                                
+                                <field name="medicines">
+                                    <tree editable="1">
+                                        <field name="product_id" domain="[('type', '=', 'product')]"/>
+                                        <field name="dose"/>
+                                        <field name="frequency"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                </field>
+                                <!-- <button name="prescription_action" string="Prescription" type="object" class="btn-primary"/> -->
+                            </page>
+                            <page string="Procedures">
+                                <group>
+                                    <field name="products" widget="many2many_tags" domain="[('type', '=', 'service')]"/>
+                                </group>                            
+                            </page>
+                        </notebook>
                     </sheet>
                </form>
             </field>
