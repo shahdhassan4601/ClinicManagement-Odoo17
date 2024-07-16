@@ -41,7 +41,8 @@ class DoctorAvailability(models.Model):
                     
                     self.env['clinic.appointment'].create({
                         'doctor_id': self.doctor_id.id,
-                        'datetime': appointment_date
+                        'datetime': appointment_date,
+                        'doctor_availability': self.id
                     })
                     start_time += 0.25
             current_date += timedelta(days=1)
@@ -55,27 +56,10 @@ class DoctorAvailability(models.Model):
     def write(self, vals):
         res = super(DoctorAvailability, self).write(vals)
         for record in self:
-            # Calculate the specific dates based on the week_day
-            current_date = datetime.now()
-            current_date = current_date.astimezone(pytz.timezone('UTC')).replace(tzinfo=None)
-            end_date = current_date + timedelta(weeks=4)
-            
-            affected_dates = []
-            while current_date <= end_date:
-                if current_date.weekday() == int(record.week_day):
-                    affected_dates.append(current_date.date())
-                current_date += timedelta(days=1)
-            
-            # Delete old appointments on the affected dates
-            for date in affected_dates:
-                start_of_day = datetime.combine(date, datetime.min.time())
-                end_of_day = datetime.combine(date, datetime.max.time())
-                old_appointments = self.env['clinic.appointment'].search([
-                    ('doctor_id', '=', record.doctor_id.id),
-                    ('datetime', '>=', start_of_day),
-                    ('datetime', '<=', end_of_day)
-                ])
-                old_appointments.unlink()
+            old_appointments = self.env['clinic.appointment'].search([
+                ('doctor_availability', '=', record.id),
+            ])
+            old_appointments.unlink()
             
             # Create new appointments
             record._create_appointments()
