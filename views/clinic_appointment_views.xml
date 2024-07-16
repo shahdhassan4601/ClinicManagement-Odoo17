@@ -84,11 +84,11 @@
                             <field name="appointment_type"/>
                             <field name="duration" widget="float_time"/>
                             <field name="notes"/>
-                            <field name="treatment_id">
+                            <!-- <field name="treatment_id">
                                 <tree>
                                     <field name="treatment_details"/>
                                 </tree>
-                            </field>
+                            </field> -->
                         </group>
                     </sheet>
                 </form>

@@ -38,8 +38,8 @@
                                             <field name="status"/>
                                             <field name="medical_record_id"/>
 
-                                            <button name="prescription_wizard_action" string="Prescription" type="object" class="btn-primary"/>
-                                            
+                                            <!-- <button name="prescription_action" string="Prescription" type="object" class="btn-primary"/> -->
+                                            <button name="treatment_action" string="Treatment" type="object" class="btn-primary"/> 
                                         </tree>
                                     </field>
                                 </page>

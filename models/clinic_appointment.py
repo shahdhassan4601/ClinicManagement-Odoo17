@@ -75,13 +75,28 @@ class ClinicAppointment(models.Model):
             'context': {'default_is_patient': 'True'}
         }
         
-    def prescription_wizard_action(self):
+    def prescription_action(self):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Prescription',
             'res_model': 'clinic.prescription',
             'view_mode': 'form',
             'view_id': self.env.ref('clinic.prescription_form_view').id,
+            'target': 'new',
+            'context': {
+                'default_appointment_id': self.id,
+                'default_patient_id': self.patient_id.id,
+                'default_doctor_id': self.doctor_id.id,
+                'default_datetime': self.datetime
+            },
+        }
+    def treatment_action(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Treatment',
+            'res_model': 'clinic.treatment',
+            'view_mode': 'form',
+            'view_id': self.env.ref('clinic.treatment_form_view').id,
             'target': 'new',
             'context': {
                 'default_appointment_id': self.id,
