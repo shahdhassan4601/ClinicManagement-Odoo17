@@ -11,9 +11,20 @@ class ClinicProduct(models.Model):
     product_type = fields.Selection(related='product_id.detailed_type', string='Product Type', store=True)
     
     dose = fields.Integer(string='Dose')
-    # dose_Unit = fields.Selection(string='Dose Unit', selection=[('mg', 'mg'), ('ml', 'ml'), ('mg/ml', 'mg/ml'),])
-    frequency = fields.Char(string='Frequency (hours)')
-    # frequency_Unit = fields.Char(string='Frequency Unit')
+    dose_Unit = fields.Selection(
+        selection=[('mg', 'Milligrams'), ('ml', 'Milliliters'), ('unit', 'Units'),
+        ('tsp', 'Teaspoons'), ('tbsp', 'Tablespoons'), ('caps', 'Capsules'), ('tablets', 'Tablets')],
+        string='Dose Unit'
+    )
+    frequency = fields.Integer(string='Frequency')
+    frequency_Unit = fields.Selection(
+        selection=[('day', 'Day'), ('week', 'Week'), ('month', 'Month'), ('hour', 'Hour')],
+        string='Frequency Unit')
+    duration = fields.Integer(string='Duration')
+    duration_Unit = fields.Selection(
+        selection=[('day', 'Day'), ('week', 'Week'), ('month', 'Month'), ('hour', 'Hour'), ('year', 'Year')],
+        string='Duration Unit')
+    
     notes = fields.Text(string='Notes')
     
     prescription_id = fields.Many2one('clinic.prescription', string='Prescription')

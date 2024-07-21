@@ -80,13 +80,13 @@
                                 </field>
                             </page>
                             <page string="Prescriptions">
-                                <!-- <field name="prescription" readonly="1">
+                                <field name="prescription" readonly="1">
                                     <tree>
-                                        <field name="medication_name"/>
-                                        <field name="dose"/>
-                                        <field name="frequency"/>
+                                        <field name="appointment_id"/>
+                                        <field name="doctor_id"/>
+                                        <field name="datetime"/>
                                     </tree>
-                                </field> -->
+                                </field>
                             </page>
 
                         </notebook>
