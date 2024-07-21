@@ -108,7 +108,22 @@ class ClinicAppointment(models.Model):
                 'default_appointment_id': self.id,
                 'default_patient_id': self.patient_id.id,
                 'default_doctor_id': self.doctor_id.id,
-                'default_datetime': self.datetime
+                'default_datetime': self.datetime,
+                'default_id': self.treatment_id.id
+            },
+        }
+    def treatment_edit_action(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Edit Treatment',
+            'res_model': 'clinic.treatment',
+            'res_id': self.treatment_id.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('clinic.treatment_form_view').id,
+            'target': 'new',
+            'context': {
+
             },
         }
         

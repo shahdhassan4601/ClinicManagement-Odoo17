@@ -79,21 +79,31 @@
                             <separator/>
                             
                             <field name="datetime"/>
-
+                            <field name="appointment_type"/>
+                            <field name="start_time" readonly="1" invisible="not start_time"/>
+                            <field name="end_time" readonly="1" invisible="not end_time"/>
+                            <field name="duration" widget="float_time"/>
                             <button name="appointment_start_time" string="Start" type="object" class="oe_inline oe_highlight" invisible="start_time"/>
                             <button name="appointment_end_time" string="End" type="object" class="oe_inline oe_highlight" invisible="end_time"/>
                             <separator />
-                            <field name="start_time" readonly="1"/>
-                            <field name="end_time" readonly="1"/>
-
                             
-                            <!-- <separator /> -->
+                            
                             <field name="doctor_id" domain="[('is_doctor', '=', True)]"/>
                             <field name="doctor_speciality"/>
-                            <field name="appointment_type"/>
-                            <field name="duration" widget="float_time"/>
+                            <separator />
+                            
+                            
+                            
+                            <!-- <separator /> -->
                             <field name="notes"/>
+                            <field name="treatment_id" invisible="1"/>
+
                         </group>
+                        <button name="treatment_action" string="Treatment" type="object" class="btn-primary" invisible="treatment_id"/>
+                        <br/>
+                        <br/>
+                        <button name="treatment_edit_action" string="Edit Treatment" type="object" class="btn-primary" invisible="not treatment_id"/>
+                         
                     </sheet>
                 </form>
             </field>
