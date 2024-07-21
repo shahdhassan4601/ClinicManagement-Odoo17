@@ -71,8 +71,11 @@
                             <page string="Medical History">
                                 <field name="medical_record" readonly="1">
                                     <tree>
-                                        <field name="treatment_ref" widget="many2many_tags"/>
-                                        <field name="attachment_ids"/>
+                                        <field name="doctor_id"/>
+                                        <field name="appointment_id"/>
+                                        <field name="appointment_datetime"/>
+                                        <field name="treatment_ref"/>
+                                        <field name="prescription_id"/>
                                     </tree>
                                 </field>
                             </page>

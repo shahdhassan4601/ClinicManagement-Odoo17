@@ -84,14 +84,19 @@ class ClinicPatient(models.Model):
                 record.age = 0
                 
 
-    @api.depends('appointment_id')
+    # @api.depends('appointment_id')
+    # def _compute_upcoming_appointments(self):
+    #     for record in self:
+    #         record.upcoming_appointments = record.appointment_id.filtered(
+    #             lambda a: a.status != 'canceled' and a.datetime and a.datetime > fields.Datetime.now()
+    #         )
+    
+    @api.depends('appointment_id.end_time')
     def _compute_upcoming_appointments(self):
         for record in self:
             record.upcoming_appointments = record.appointment_id.filtered(
-                lambda a: a.status != 'canceled' and a.datetime and a.datetime > fields.Datetime.now()
+                lambda a: a.status in ['pending','confirmed'] and a.datetime and a.datetime > fields.Datetime.now() and ( (not a.end_time) or a.end_time > fields.Datetime.now()) 
             )
-    
-
     
     # field constraints 
     @api.constrains('date_of_birth')

@@ -42,18 +42,24 @@
                                 
                                 <field name="medicines">
                                     <tree editable="1">
-                                        <field name="product_id" domain="[('type', '=', 'product')]"/>
+                                        <field name="product_id" string="Medicine" domain="[('detailed_type', '=', 'product')]"/>
                                         <field name="dose"/>
                                         <field name="frequency"/>
                                         <field name="notes"/>
                                     </tree>
                                 </field>
-                                <!-- <button name="prescription_action" string="Prescription" type="object" class="btn-primary"/> -->
+
+                                <!-- <separator/> -->
+
+                                <button name="prescription_action" string="Create Prescription" type="object" class="btn-primary" invisible="id"/>
                             </page>
                             <page string="Procedures">
-                                <group>
-                                    <field name="products" widget="many2many_tags" domain="[('type', '=', 'service')]"/>
-                                </group>                            
+                                <field name="services">
+                                    <tree editable="1">
+                                        <field name="product_id" string="Procedure" domain="[('detailed_type', '=', 'service')]"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                </field>                            
                             </page>
                         </notebook>
                     </sheet>

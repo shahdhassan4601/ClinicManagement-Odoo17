@@ -15,11 +15,12 @@ class ClinicTreatment(models.Model):
     
     # treatment fields
     treatment_diagnosis = fields.Text('Diagnosis')
-    prescripted_medication = fields.Many2one('clinic.prescription', string='Prescripted Medication')
-    medicines = fields.One2many('clinic.medicine',  'treatment_id' ,string='Medicines')
-    products = fields.Many2many('product.product', string='Procedures')
+    medicines = fields.One2many('clinic.medicine',  'treatment_id' ,string='Medicines', domain=[('product_type', '=', 'product')])
+    services = fields.One2many('clinic.medicine',  'treatment_id' ,string='Procedures', domain=[('product_type', '=', 'service')])
     
-    procedure = fields.Text('Procedure')
+    medical_record_id = fields.Many2one('clinic.medical.record', string='Medical Record')
+
+    
     
     notes = fields.Text('Notes')
     
@@ -45,12 +46,34 @@ class ClinicTreatment(models.Model):
     @api.model
     def create(self, vals):
         vals["name"] = self.env['ir.sequence'].next_by_code('treatment.sequence')
-        
-        return super().create(vals)
+        treatment = super().create(vals)
+        self.env['clinic.medical.record'].create({
+            'patient_id': treatment.patient_id.id,
+            'doctor_id': treatment.doctor_id.id,
+            'appointment_id': treatment.appointment_id.id,
+            'appointment_datetime': treatment.datetime,
+            'treatment_ref': [(4, treatment.id)],
+            # 'prescription_details': treatment.prescription_details,
+        })
+        return treatment
     
+    def write(self, vals):
+        res = super().write(vals)
+        if 'patient_id' in vals or 'doctor_id' in vals:
+            medical_record = self.env['medical.record'].search([('treatment_ref', 'in', [self.id])], limit=1)
+            if medical_record:
+                medical_record.write({
+                   'patient_id': self.patient_id.id,
+                    'doctor_id': self.doctor_id.id,
+                    'appointment_id': self.appointment_id.id,
+                    'appointment_datetime': self.datetime,
+                    'treatment_ref': [(4, self.id)],
+                })
+        return res
             
             
     def prescription_action(self):
+        self.ensure_one()        
         return {
             'type': 'ir.actions.act_window',
             'name': 'Prescription',
@@ -62,6 +85,7 @@ class ClinicTreatment(models.Model):
                 'default_appointment_id': self.appointment_id.id,
                 'default_patient_id': self.patient_id.id,
                 'default_doctor_id': self.doctor_id.id,
-                'default_datetime': self.datetime
+                'default_datetime': self.datetime,
             },
         }
+            

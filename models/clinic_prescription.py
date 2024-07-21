@@ -17,6 +17,8 @@ class ClinicPrescription(models.Model):
 
     medicines = fields.One2many('clinic.medicine','prescription_id', string='Medicines')
     
+    medical_record_id = fields.Many2one('clinic.medical.record', string='Medical Record')
+    
     notes = fields.Text(string='Notes')
     
     @api.model
