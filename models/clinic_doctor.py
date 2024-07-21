@@ -31,8 +31,8 @@ class ClinicDoctor(models.Model):
     appointment_id = fields.One2many('clinic.appointment', 'doctor_id', string='Appointments')
     # patient_id = fields.
     available_appointments = fields.One2many('clinic.appointment', 'doctor_id', compute='_compute_available_appointments')
-    reversed_appointments = fields.One2many('clinic.appointment', 'doctor_id', compute='_compute_reserved_appointments')
-        
+    reversed_appointments = fields.One2many('clinic.appointment', 'doctor_id', compute='_compute_reserved_appointments', readonly=False)
+
     
     # @api.depends('appointment_id')
     # def _compute_availability(self):
@@ -45,11 +45,11 @@ class ClinicDoctor(models.Model):
             record.available_appointments = record.appointment_id.filtered(
                 lambda a: a.status == 'available' and a.datetime and a.datetime > fields.Datetime.now()
             )
-    @api.depends('appointment_id')
+    @api.depends('appointment_id.end_time')
     def _compute_reserved_appointments(self):
         for record in self:
             record.reversed_appointments = record.appointment_id.filtered(
-                lambda a: a.status == 'pending' and a.datetime and a.datetime > fields.Datetime.now()
+                lambda a: a.status in ['pending','confirmed'] and a.datetime and a.datetime > fields.Datetime.now() and ( (not a.end_time) or a.end_time > fields.Datetime.now()) 
             )
 
             
