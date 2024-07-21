@@ -44,7 +44,11 @@
                                     <tree editable="1">
                                         <field name="product_id" string="Medicine" domain="[('detailed_type', '=', 'product')]"/>
                                         <field name="dose"/>
+                                        <field name="dose_Unit"/>
                                         <field name="frequency"/>
+                                        <field name="frequency_Unit"/>
+                                        <field name="duration"/>
+                                        <field name="duration_Unit"/>
                                         <field name="notes"/>
                                     </tree>
                                 </field>
