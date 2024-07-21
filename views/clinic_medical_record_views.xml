@@ -5,10 +5,10 @@
             <field name="model">clinic.medical.record</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="patient_id"/>
+                    <!-- <field name="patient_id"/>
                     <field name="date"/>
                     <field name="doctor_id"/>
-                    <field name="treatment_ref" widget="many2many_tags"/>
+                    <field name="treatment_ref" widget="many2many_tags"/> -->
                 </tree>
             </field>
         </record>
@@ -19,27 +19,38 @@
             <field name="arch" type="xml">
                <form>
                     <sheet>                            
-                        <h1>
-                            <field name="patient_id"/>
-                        </h1>
-
                         <group>
                             <group>
-                                <field name="date"/>
-                                <field name="doctor_id"/>
-                                <field name="notes"/>
-                            </group>
-
-                            <group>
+                                <field name="patient_id"/>
+                                <field name="appointment_id"/>
                                 <field name="is_uploadable_files"/>
                                 <field name="attachment_ids" widget="many2many_binary" invisible="not is_uploadable_files"/>
+                            </group>
+                            
+                            <group>
+                                <field name="doctor_id"/>
+                                <field name="appointment_datetime"/>
+                                <field name="notes"/>
                             </group>
                         </group>
 
                         <notebook>
                             <page string="Treatments">
-                                <field name="treatment_ref"/>
+                                <field name="treatment_ref">
+                                    <tree>
+                                        <field name="treatment_diagnosis"/>
+                                        <field name="medicines"/>
+                                        <field name="services"/>
+                                    </tree> 
+                                </field>
+                            
                             </page>
+                            <!-- <page string="Prescriptions">
+                                <field name="prescription_id">
+                                    <field name="prescription_id"/>
+
+                                </field>
+                            </page> -->
                         </notebook>
                     </sheet>
                </form>
