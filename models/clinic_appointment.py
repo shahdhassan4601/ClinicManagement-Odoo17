@@ -44,7 +44,7 @@ class ClinicAppointment(models.Model):
     
     treatment_id = fields.One2many('clinic.treatment','appointment_id', string='Treatment')
     
-    medical_record_id = fields.One2many('clinic.medical.record','appointment_id', string='Medical Record')
+    medical_record_id = fields.One2many('clinic.medical.record','appointment_id', string='Medical History')
     
     log_id = fields.One2many('clinic.logs','appointment_id', string='Log')
     
@@ -80,6 +80,21 @@ class ClinicAppointment(models.Model):
             'target': 'new',  # You can use 'new' to open in a new window
             'context': {'default_is_patient': 'True'}
         }
+        
+    def patient_view_action(self):
+        patient_id = self.patient_id.id if self.patient_id else False
+        if patient_id:
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Patient Details',
+                'res_model': 'res.partner', 
+                'view_mode': 'form',
+                'view_id': self.env.ref('clinic.patient_views_form').id,  
+                'res_id': patient_id,  
+                'target': 'new'
+            }
+        else:
+            raise ValidationError("Please create patient first")
         
     def prescription_action(self):
         return {

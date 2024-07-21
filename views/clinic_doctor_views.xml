@@ -36,7 +36,6 @@
                                             <field name="patient_id"/>
                                             <field name="appointment_type"/>
                                             <field name="status"/>
-                                            <field name="medical_record_id"/>
 
                                             <!-- <button name="prescription_action" string="Prescription" type="object" class="btn-primary"/> -->
                                         </tree>

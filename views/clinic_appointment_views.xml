@@ -75,6 +75,7 @@
                         <group>
                             <field name="patient_id" domain="[('is_patient', '=', True)]"/>
                             
+                            <button name="patient_view_action" string="View" type="object" class="oe_inline oe_highlight"/>
                             <button name="patient_create_action" string="Create" type="object" class="oe_inline oe_highlight"/>
                             <separator/>
                             
