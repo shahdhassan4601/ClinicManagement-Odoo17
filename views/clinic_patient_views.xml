@@ -31,10 +31,10 @@
                             <page string="Patient Details">
                                 <group>
                                     <group string="Basic Info">
+                                        <field name="phone"/>
                                         <field name="date_of_birth"/>
                                         <field name="age"/>
                                         <field name="gender"/>
-                                        <field name="phone"/>
                                     </group>
                                     <group string="address info">
                                         <field name="street"/>

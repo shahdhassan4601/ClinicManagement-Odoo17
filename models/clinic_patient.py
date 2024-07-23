@@ -9,6 +9,8 @@ class ClinicPatient(models.Model):
     # Base fields
     # Unique ID
     patient_id = fields.Char('Patient ID', default='New', readonly=True)
+    # override the phone field to make it required
+    phone = fields.Char(string='Phone', required=True)
     date_of_birth = fields.Date(string='Date of Birth', required=True)
     age = fields.Integer(string='Age', compute='_compute_age', store=True)
     gender = fields.Selection([
@@ -52,6 +54,7 @@ class ClinicPatient(models.Model):
     # overridden method create to add sequence
     @api.model
     def create(self, vals):
+        # check before creating a new patient if the phone number already exists or not if it is exists create a wizrd of all the possible patients in the system and ask the user to choose one and if not create a new one
         res = super(ClinicPatient, self).create(vals)
         if res.patient_id == 'New':
             res.patient_id = self.env['ir.sequence'].next_by_code('patient.sequence')
@@ -83,13 +86,6 @@ class ClinicPatient(models.Model):
             else:
                 record.age = 0
                 
-
-    # @api.depends('appointment_id')
-    # def _compute_upcoming_appointments(self):
-    #     for record in self:
-    #         record.upcoming_appointments = record.appointment_id.filtered(
-    #             lambda a: a.status != 'canceled' and a.datetime and a.datetime > fields.Datetime.now()
-    #         )
     
     @api.depends('appointment_id.end_time')
     def _compute_upcoming_appointments(self):
@@ -111,3 +107,10 @@ class ClinicPatient(models.Model):
         for record in self:
             if record.expiry_date and record.expiry_date < fields.Date.today():
                 raise ValidationError("Expiry Date must be in the future.")
+
+    # contrain on the phone number to begin with 01 and have 11 digits
+    @api.constrains('phone')
+    def _check_phone(self):
+        for record in self:
+            if record.phone and not record.phone.startswith('01') or len(record.phone) != 11:
+                raise ValidationError("Phone Number must start with 01 and have 11 digits.")
