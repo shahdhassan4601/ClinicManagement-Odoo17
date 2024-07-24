@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 class ClinicAppointment(models.Model):
     _name = 'clinic.appointment'
     _description = 'Appointment'
-
+    
     # patient fields
     name = fields.Char(string='Name', readonly=True, default='New')
     patient_id = fields.Many2one('res.partner', string='Patient')
@@ -32,8 +32,10 @@ class ClinicAppointment(models.Model):
         ('dentistry', 'Dentistry'),
         ('gastroenterology', 'Gastroenterology'),
     ], string='Specialty', default='general')
+    
     doctor_id = fields.Many2one('res.users', string='Doctor')
-    doctor_availability = fields.Many2one('clinic.doctor.availability', string='Doctor Availability')
+    doctor_availability = fields.Many2one('clinic.doctor.availability', string='Day')
+    
 
 
     duration = fields.Float('Duration (hh:mm)', compute='_compute_duration')
@@ -182,4 +184,4 @@ class ClinicAppointment(models.Model):
         for record in self:
             if record.doctor_speciality:
                 record.doctor_id = None
-    
+            

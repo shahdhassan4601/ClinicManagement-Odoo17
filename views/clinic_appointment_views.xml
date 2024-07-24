@@ -85,6 +85,9 @@
 
                             <!-- <field name="datetime"/> -->
                             <field name="appointment_type"/>
+                            <field name="doctor_availability" domain="[('doctor_id','=', doctor_id)]"/>
+                            <!-- <field name="day_per_week"/> -->
+
                             <field name="start_time" readonly="1" invisible="not start_time"/>
                             <field name="end_time" readonly="1" invisible="not end_time"/>
                             <field name="duration" widget="float_time"/>
