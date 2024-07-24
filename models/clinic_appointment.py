@@ -15,8 +15,24 @@ class ClinicAppointment(models.Model):
     datetime = fields.Datetime('Date and Time')
     
     
+    # doctor_speciality = fields.Selection(string='Doctor Speciality', related='doctor_id.specialty', readonly=False)
+    doctor_speciality = fields.Selection([
+        ('general', 'General'),
+        ('cardiology', 'Cardiology'),
+        ('orthopedics', 'Orthopedics'),
+        ('pediatrics', 'Pediatrics'),
+        ('gynaecology', 'Gynaecology'),
+        ('dermatology', 'Dermatology'),
+        ('urology', 'Urology'),
+        ('neurology', 'Neurology'),
+        ('oncology', 'Oncology'),
+        ('obstetrics', 'Obstetrics'),
+        ('emergency', 'Emergency'),
+        ('surgery', 'Surgery'),
+        ('dentistry', 'Dentistry'),
+        ('gastroenterology', 'Gastroenterology'),
+    ], string='Specialty', default='general')
     doctor_id = fields.Many2one('res.users', string='Doctor')
-    doctor_speciality = fields.Selection(string='Doctor Speciality', related='doctor_id.specialty')
     doctor_availability = fields.Many2one('clinic.doctor.availability', string='Doctor Availability')
 
 
@@ -159,4 +175,11 @@ class ClinicAppointment(models.Model):
     def appointment_end_time(self):
         self.end_time = fields.Datetime.now()
         self._compute_duration()
-        
+    
+            
+    @api.onchange('doctor_speciality')
+    def _onchange_doctor_speciality(self):
+        for record in self:
+            if record.doctor_speciality:
+                record.doctor_id = None
+    

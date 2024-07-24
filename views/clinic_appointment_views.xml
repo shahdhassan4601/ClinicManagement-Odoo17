@@ -75,11 +75,15 @@
                         <group>
                             <field name="patient_id" domain="[('is_patient', '=', True)]"/>
                             
-                            <button name="patient_view_action" string="View" type="object" class="oe_inline oe_highlight"/>
-                            <button name="patient_create_action" string="Create" type="object" class="oe_inline oe_highlight"/>
-                            <separator/>
+                            <!-- <button name="patient_view_action" string="View" type="object" class="oe_inline oe_highlight"/> -->
+                            <!-- <button name="patient_create_action" string="Create" type="object" class="oe_inline oe_highlight"/> -->
+                            <!-- <separator/> -->
                             
-                            <field name="datetime"/>
+                            <field name="doctor_speciality"/>
+                            <field name="doctor_id" domain="[('is_doctor', '=', True), ('specialty','=',doctor_speciality)]"/>
+
+
+                            <!-- <field name="datetime"/> -->
                             <field name="appointment_type"/>
                             <field name="start_time" readonly="1" invisible="not start_time"/>
                             <field name="end_time" readonly="1" invisible="not end_time"/>
@@ -89,8 +93,6 @@
                             <separator />
                             
                             
-                            <field name="doctor_id" domain="[('is_doctor', '=', True)]"/>
-                            <field name="doctor_speciality"/>
                             <separator />
                             
                             
@@ -118,7 +120,7 @@
                 <search>
                 <!-- add fields to search by them in search bar -->
                     <field name="patient_id"/>
-                    <field name="doctor_id"/>
+                    <field name="doctor_id" domain="[('specialty', '=', doctor_speciality)]"/>
                     <field name="doctor_speciality"/>
                     <field name="appointment_type"/>
                     <field name="status"/>
