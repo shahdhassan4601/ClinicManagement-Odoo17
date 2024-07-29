@@ -8,7 +8,7 @@ class ClinicAppointmentTimeSlots(models.Model):
 
     name= fields.Char(string='Name', compute='_compute_name')
     doctor_id = fields.Many2one('res.users', string='Doctor')
-    # appointment_id = fields.Many2one('clinic.appointment', string='Appointment')
+    availability_id = fields.Many2one('clinic.doctor.availability', string='Appointment')
     start_time = fields.Float('Start Time')
     end_time = fields.Float('End Time')
     count = fields.Integer("Number of Appointments", default=0)

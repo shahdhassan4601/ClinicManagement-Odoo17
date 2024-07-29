@@ -47,7 +47,8 @@ class DoctorAvailability(models.Model):
                     break
                 
                 self.env['clinic.appointment.time.slots'].create({
-                'doctor_id': self.doctor_id.id, # the problem is hereeeeeeeee
+                'doctor_id': self.doctor_id.id, 
+                'availability_id': self.id,
                 'start_time': start_time,
                 'end_time': end_time
                 })

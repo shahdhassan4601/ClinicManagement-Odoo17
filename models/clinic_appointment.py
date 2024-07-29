@@ -37,7 +37,7 @@ class ClinicAppointment(models.Model):
     
     doctor_availability = fields.Many2one('clinic.doctor.availability', string='Day and Time')
 
-    appointment_time_slots = fields.Many2one('clinic.appointment.time.slots', string='Appointment Slots', domain="[('doctor_id', '=', doctor_id)]")
+    appointment_time_slots = fields.Many2one('clinic.appointment.time.slots', string='Appointment Slots', domain="[('availability_id', '=', doctor_availability)]")
 
     duration = fields.Float('Duration (hh:mm)')
     
