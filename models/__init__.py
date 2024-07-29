@@ -9,3 +9,4 @@ from . import account_move
 from . import account_move_line
 from . import clinic_doctor_availability
 from . import clinic_medicine
+from . import clinic_appointment_time_slots

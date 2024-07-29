@@ -8,8 +8,8 @@ from odoo import api, fields, models
 class DoctorAvailability(models.Model):
     _name = 'clinic.doctor.availability'
     _description = 'Doctor Availability'
-    _rec_name = 'week_day'
 
+    name = fields.Char(string='Name', compute='_compute_name')
     doctor_id = fields.Many2one('res.users', string='Doctor')
     week_day = fields.Selection([
         ('Friday', 'Friday'),
@@ -24,4 +24,33 @@ class DoctorAvailability(models.Model):
     end_datetime = fields.Float(string='End Time', widget="float_time")
     
 
-    
+    @api.depends('week_day',"start_datetime","end_datetime")
+    def _compute_name(self):
+        for record in self:
+            record.name = f"{record.week_day} ({record.start_datetime} - {record.end_datetime})"
+            
+    # override create method to create appointment time slots in the clinic appointment time slots model to create slots every 15 minutes
+    @api.model
+    def create(self, vals):
+        res=super().create(vals)
+        res.create_time_slots()
+        return res
+
+    def create_time_slots(self):
+        for availability in self:
+            start_time = availability.start_datetime
+            end_time = availability.end_datetime
+
+            while start_time < end_time:
+                slot_end_time = start_time + 0.25
+                if slot_end_time > end_time:
+                    break
+                
+                self.env['clinic.appointment.time.slots'].create({
+                'doctor_id': self.doctor_id.id, # the problem is hereeeeeeeee
+                'start_time': start_time,
+                'end_time': end_time
+                })
+                
+                start_time = slot_end_time
+        

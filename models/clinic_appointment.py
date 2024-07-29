@@ -10,10 +10,10 @@ class ClinicAppointment(models.Model):
     # patient fields
     name = fields.Char(string='Name', readonly=True, default='New')
     patient_id = fields.Many2one('res.partner', string='Patient')
+    phone = fields.Char(string='Patient Phone', required=True)    
     
     # address computed field
     datetime = fields.Datetime('Date and Time')
-    
     
     # doctor_speciality = fields.Selection(string='Doctor Speciality', related='doctor_id.specialty', readonly=False)
     doctor_speciality = fields.Selection([
@@ -34,11 +34,12 @@ class ClinicAppointment(models.Model):
     ], string='Specialty', default='general')
     
     doctor_id = fields.Many2one('res.users', string='Doctor')
-    doctor_availability = fields.Many2one('clinic.doctor.availability', string='Day')
     
+    doctor_availability = fields.Many2one('clinic.doctor.availability', string='Day and Time')
 
+    appointment_time_slots = fields.Many2one('clinic.appointment.time.slots', string='Appointment Slots', domain="[('doctor_id', '=', doctor_id)]")
 
-    duration = fields.Float('Duration (hh:mm)', compute='_compute_duration')
+    duration = fields.Float('Duration (hh:mm)')
     
     start_time = fields.Datetime('Start Time')
     end_time = fields.Datetime('End Time')
@@ -80,8 +81,32 @@ class ClinicAppointment(models.Model):
             'entry_datetime': res.datetime,
             'notes': res.notes
         })
+        if res.appointment_time_slots:
+            res.appointment_time_slots.count += 1
         return res
     
+    @api.model
+    def write(self, vals):
+        for record in self:
+            if 'appointment_time_slots' in vals:
+                if record.appointment_time_slots:
+                    record.appointment_time_slots.count -= 1
+                    
+                slot = self.env['clinic.appointment.time.slots'].browse(vals['appointment_time_slots'])
+                if slot:
+                    slot.count += 1
+                         
+        return super(ClinicAppointment, self).write(vals)
+    
+    @api.model
+    def delete(self):
+        for record in self:
+            if record.appointment_time_slots:
+                record.appointment_time_slots.count -= 1
+        return super(ClinicAppointment, self).delete()
+    
+    
+            
     @api.onchange('patient_id')
     def _onchange_patient_id(self):
         for record in self:
@@ -123,7 +148,7 @@ class ClinicAppointment(models.Model):
             'view_id': self.env.ref('clinic.prescription_form_view').id,
             'target': 'new',
             'context': {
-                'default_appointment_id': self.id,
+                'default_appntment_id': self.id,
                 'default_patient_id': self.patient_id.id,
                 'default_doctor_id': self.doctor_id.id,
                 'default_datetime': self.datetime
@@ -184,4 +209,12 @@ class ClinicAppointment(models.Model):
         for record in self:
             if record.doctor_speciality:
                 record.doctor_id = None
+                
+        # contrain on the phone number to begin with 01 and have 11 digits
+    @api.constrains('phone')
+    def _check_phone(self):
+        for record in self:
+            if record.phone and not record.phone.startswith('01') or len(record.phone) != 11:
+                raise ValidationError("Phone Number must start with 01 and have 11 digits.")
             
+    
