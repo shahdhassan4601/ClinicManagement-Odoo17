@@ -11,6 +11,7 @@ class DoctorAvailability(models.Model):
 
     name = fields.Char(string='Name', compute='_compute_name')
     doctor_id = fields.Many2one('res.users', string='Doctor')
+    doctor_speciality = fields.Selection(string='Doctor Speciality', related='doctor_id.specialty', store=True, readonly=False)
     week_day = fields.Selection([
         ('Friday', 'Friday'),
         ('Saturday', 'Saturday'),
@@ -47,7 +48,7 @@ class DoctorAvailability(models.Model):
                     break
                 
                 self.env['clinic.appointment.time.slots'].create({
-                'doctor_id': self.doctor_id.id, 
+                'doctor_id': self.doctor_id.id,
                 'availability_id': self.id,
                 'start_time': start_time,
                 'end_time': end_time

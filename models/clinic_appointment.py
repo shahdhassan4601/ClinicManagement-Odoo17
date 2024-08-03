@@ -15,7 +15,6 @@ class ClinicAppointment(models.Model):
     # address computed field
     datetime = fields.Datetime('Date and Time')
     
-    # doctor_speciality = fields.Selection(string='Doctor Speciality', related='doctor_id.specialty', readonly=False)
     doctor_speciality = fields.Selection([
         ('general', 'General'),
         ('cardiology', 'Cardiology'),

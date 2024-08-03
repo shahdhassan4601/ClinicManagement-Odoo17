@@ -83,7 +83,7 @@
                             
                             <field name="doctor_speciality"/>
                             <field name="doctor_id" domain="[('is_doctor', '=', True), ('specialty','=',doctor_speciality)]"/>
-                            <field name="doctor_availability" domain="[('doctor_id','=',doctor_id)]"/>
+                            <field name="doctor_availability" domain="[('doctor_speciality','=',doctor_speciality)]"/>
                             <field name="appointment_time_slots" />
                             
 
@@ -137,5 +137,6 @@
             <field name="res_model">clinic.appointment</field>
             <field name="view_mode">calendar,kanban,form,tree</field>
         </record>
+            
     </data>
 </odoo>
