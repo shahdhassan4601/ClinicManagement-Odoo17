@@ -21,7 +21,7 @@
                         <h1>
                             <field name="name"/>
                         </h1>
-                        <group>
+                        <!-- <group>
                             <group>
                                 <field name="patient_id"/>
                                 <field name="doctor_id"/>
@@ -31,7 +31,7 @@
                                 <field name="appointment_id"/>
                                 <field name="datetime"/>
                             </group>
-                        </group>
+                        </group> -->
                         
                         <group>
                             <field name="treatment_diagnosis"/>
@@ -49,13 +49,13 @@
                                         <field name="frequency_Unit"/>
                                         <field name="duration"/>
                                         <field name="duration_Unit"/>
-                                        <field name="notes"/>
+                                        <!-- <field name="notes"/> -->
                                     </tree>
                                 </field>
 
                                 <!-- <separator/> -->
 
-                                <button name="prescription_action" string="Create Prescription" type="object" class="btn-primary" invisible="id"/>
+                                <!-- <button name="prescription_action" string="Create Prescription" type="object" class="btn-primary" invisible="id"/> -->
                             </page>
                             <page string="Procedures">
                                 <field name="services">

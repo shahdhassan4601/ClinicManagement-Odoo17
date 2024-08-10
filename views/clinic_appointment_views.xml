@@ -84,11 +84,12 @@
                             <field name="doctor_speciality"/>
                             <field name="doctor_id" domain="[('is_doctor', '=', True), ('specialty','=',doctor_speciality)]"/>
                             <field name="doctor_availability" domain="[('doctor_speciality','=',doctor_speciality)]"/>
-                            <field name="appointment_time_slots" />
+                            <field name="appointment_time_slots"/>
                             
 
                             <!-- <field name="datetime"/> -->
                             <field name="appointment_type"/>
+                            <field name="notes"/>
                             
 
 
@@ -98,16 +99,24 @@
                             <button name="appointment_start_time" string="Start" type="object" class="oe_inline oe_highlight" invisible="start_time"/>
                             <button name="appointment_end_time" string="End" type="object" class="oe_inline oe_highlight" invisible="end_time"/>
 
-                            <!-- <separator /> -->
-                            <field name="notes"/>
-                            <field name="treatment_id" invisible="1"/>
+                            <separator />
+                            <!-- <field name="treatment_id" invisible="1"/> -->
 
                         </group>
-                        <button name="treatment_action" string="Treatment" type="object" class="btn-primary" invisible="treatment_id"/>
+                        <!-- <button name="treatment_action" string="Treatment" type="object" class="btn-primary" invisible="treatment_id"/>
                         <br/>
                         <br/>
                         <button name="treatment_edit_action" string="Edit Treatment" type="object" class="btn-primary" invisible="not treatment_id"/>
-                         
+                          -->   
+                        <notebook>
+                            <page name="Treatment">
+                                <field name="treatment_id">
+                                    <tree>
+                                        <field name="appointment_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
