@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="clinic_patient_report_tempelate">
+        <t t-foreach="docs" t-as="patient">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <br/>
+                        <h2>
+                            <span t-field="patient.patient_id"/>
+                        </h2>
+                        <h5> Basic Info </h5>
+                        <hr/>
+                        <div>
+                            <strong>Name: </strong>
+                            <span t-field="patient.name"/>
+                        </div>
+                        <div>
+                            <strong>Phone: </strong>
+                            <span t-field="patient.phone"/>
+                        </div>
+                        <div>
+                            <strong>Date of birth: </strong>
+                            <span t-field="patient.date_of_birth"/>
+                        </div>
+                        <div>
+                            <strong>Age: </strong>
+                            <span t-field="patient.age"/>
+                        </div>
+                        <div>
+                            <strong>Gender: </strong>
+                            <span t-field="patient.gender"/>
+                        </div>
+                        <div>
+                            <strong>Address: </strong>
+                            <span t-field="patient.address"/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Prescription</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="prescription" t-value="patient.mapped('prescription')"/>
+                                <tr t-foreach="prescription" t-as="prescription">
+                                    <td>
+                                        <span t-field="prescription.medicines.product_id"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
